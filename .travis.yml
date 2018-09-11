@@ -26,7 +26,6 @@ install:
 
 script:
   - yarn run build
-  - ls build/static/css
 
 deploy:
   provider: pages
