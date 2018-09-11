@@ -18,6 +18,4 @@ install:
 
 script:
   - yarn run build
-
-after_success:
   - bash ./scripts/deploy.sh
