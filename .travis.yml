@@ -52,7 +52,8 @@ jobs:
     if: branch IN (release, dev, master)
     node_js:
       - 10.8.0
-    script: skip
+    script:
+      - yarn run build
     deploy:
     - provider: pages
       skip_cleanup: true
