@@ -52,8 +52,7 @@ jobs:
     if: branch = release
     node_js:
       - 10.8.0
-    script:
-    - yarn run build
+    script: skip
     deploy:
     - provider: pages
       skip_cleanup: true
