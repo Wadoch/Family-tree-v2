@@ -52,7 +52,7 @@ jobs:
       - 10.8.0
     script:
       - yarn run build
-      - ls build/static
+      - ls build/static/css
     deploy:
     - provider: pages
       skip_cleanup: true
