@@ -37,23 +37,23 @@ jobs:
   - stage: build
     if: branch IN (release, dev, master)
     node_js:
-      - 10
+      - 10.8.0
     script:
       - yarn run build
   # Job: Test
   - stage: test
     if: branch IN (release, dev, master)
     node_js:
-      - 10
+      - 10.8.0
     script:
       - yarn run test
   # Job: Page
   - stage: deploy
     if: branch = release
     node_js:
-      - 10
+      - 10.8.0
     deploy:
-      provider: pages
+    - provider: pages
       skip_cleanup: true
       github_token: $GH_TOKEN  # Set in the settings page of your repository, as a secure variable
       keep_history: true
