@@ -1,15 +1,9 @@
 #!/bin/bash
 set -o errexit
 
-#rm -rf public
-#mkdir public
-
 # config
 git config --global user.email "dwadoch@gmail.com"
 git config --global user.name "Wadoch"
-
-# build (CHANGE THIS)
-#yarn run build
 
 # deploy
 cd public
