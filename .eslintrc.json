@@ -1,0 +1,101 @@
+{
+    "env": {
+        "browser": true,
+        "commonjs": true,
+        "es6": true
+    },
+    "extends": "eslint:recommended",
+    "parserOptions": {
+        "sourceType": "module",
+        "ecmaFeatures": {
+            "jsx": true,
+            "modules": true
+        }
+    },
+    "plugins": [
+        "react"
+    ],
+    "rules": {
+        "indent": [
+            "error",
+            4,
+            {
+                "SwitchCase": 1,
+                "ObjectExpression": "first"
+            }
+        ],
+        "max-len": [
+            "error",
+            120,
+            {
+                "ignoreComments": true
+            }
+        ],
+        "comma-dangle": [
+            "error",
+            {
+                "arrays": "always-multiline",
+                "objects": "always-multiline",
+                "imports": "always-multiline",
+                "exports": "always-multiline",
+                "functions": "never"
+            }
+        ],
+        "no-unused-vars": [
+            "off",
+            "always"
+        ],
+        "function-paren-newline": [
+            "error",
+            "consistent"
+        ],
+        "object-curly-newline": [
+            "error",
+            {
+                "consistent": true
+            }
+        ],
+        "react/jsx-curly-spacing": [
+            "error",
+            "always",
+            {
+                "spacing": {
+                    "objectLiterals": "never"
+                }
+            }
+        ],
+        "react/no-typos": [
+            0
+        ],
+        "react/jsx-filename-extension": [
+            0
+        ],
+        "react/jsx-indent": [
+            "error",
+            4
+        ],
+        "react/jsx-indent-props": [
+            "error",
+            4
+        ],
+        "import/no-extraneous-dependencies": [
+            0
+        ],
+        "import/no-unresolved": [
+            0
+        ],
+        "import/extensions": [
+            0
+        ],
+        "no-plusplus": 0,
+        "no-console": "error",
+        "no-multiple-empty-lines": [
+            "error",
+            {
+                "max": 1,
+                "maxBOF": 0,
+                "maxEOF": 1
+            }
+        ]
+    }
+}
