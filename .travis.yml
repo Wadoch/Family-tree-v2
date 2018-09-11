@@ -26,13 +26,35 @@ notifications:
 install:
   - yarn
 
-script:
-  - yarn run build
-#  - bash ./scripts/deploy.sh
+stages:
+  - build
+  - test
+  - deploy
 
-deploy:
-  provider: pages
-  skip_cleanup: true
-  github_token: $GITHUB_TOKEN  # Set in the settings page of your repository, as a secure variable
-  keep_history: true
-  local_dir: public/
+jobs:
+  include:
+  # Job: Build
+  - stage: build
+    if: branch IN (release, dev, master)
+    node_js:
+      - 10
+    script:
+      - yarn run build
+  # Job: Test
+  - stage: test
+    if: branch IN (release, dev, master)
+    node_js:
+      - 10
+    script:
+      - yarn run test
+  # Job: Page
+  - stage: deploy
+    if: branch = release
+    node_js:
+      - 10
+    deploy:
+      provider: pages
+      skip_cleanup: true
+      github_token: $GH_TOKEN  # Set in the settings page of your repository, as a secure variable
+      keep_history: true
+      local_dir: public/
