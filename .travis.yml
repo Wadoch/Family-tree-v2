@@ -4,6 +4,9 @@ node_js:
 
 env:
   global:
+    - GH_USER: Wadoch
+    - GH_REPO: Family-tree-v2
+
     # GITHUB_TOKEN
     - secure: "eyN3tyF/xG7c48v5IzjwEZDT6pR2+WHwKUtVbGvKsz5OPKwPG5zmvavUT14JuaDsd2uTBYeOlRLlVsyFH/q8EK9tsI17nr8O1eabeN4KsBMButLsUGM/GpzKI1qh0Q9N7tHSPhZiwf1FB0Us3Mu5eSzI5nggMKBh6w+3l2sWjRkZoF5yp0JGp/MDbyccBBmMynv0f0W5SzUkzhAoH0Eg9kN7mDLJDNhBJ+Ok/v8pORBC5q3ElBMi6eCr3ySI8O6A7lhDW8Td/XNvE1W02yfcYsf60/Ol6Z9fs4lWhFaiKtVbd5VLmNQ8n/3b+LVvwVLwNf1T1TjokZu627i39hdAYPtNkR5Gs24UQz4GhaE5dNJ5j5vDqyjxYSI/NUDug3Bbtacn1UWhta4F7KuLmUBExeEhuDx0BpUAVk4qBOpC9VE5s4lJD6dU1LmG36SGiT0J7iKGsY58s9Ju2+EpTFuLry7puyiHjzqfWbRk2TWZxxTKt34IHkVrqyetRsR0Ns5lQqlS2OvPJrcHbstX1zflVhdEc/TmNmrUgh8nVlixT6/9FdOR+dGVinoOF6Py1AbLlBq9DAUt59Ukkg9QyWU/Fst9Del8LF9JQnL2Zs/viHVxAgYzpX6UhywIlVpzwvPm62cjjGbEz9aHq64e8e8tJBCguGxwOHNVp+BWzsW5wYE="
 
@@ -15,4 +18,4 @@ install:
 
 script:
   - yarn run build
-  - bash ./scripts/deploy-to-gh-pages.sh
+  - bash ./scripts/deploy.sh
