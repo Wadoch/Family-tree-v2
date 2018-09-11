@@ -49,7 +49,7 @@ jobs:
       - yarn run test
   # Job: Deploy
   - stage: deploy
-    if: branch = release
+    if: branch IN (release, dev, master)
     node_js:
       - 10.8.0
     script: skip
