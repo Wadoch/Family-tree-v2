@@ -2,13 +2,12 @@
 
 ## Quickstart
 
-First install dependencies:
-
+- First install dependencies
 `yarn`
-
-Then run app:
-
+- Then run app
 `yarn run start`
+- Use your preferred IDE to modify code
+- Your app will be available at `localhost:3000`
 
 ## Requirements
 
