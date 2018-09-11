@@ -2,6 +2,10 @@ language: node_js
 node_js:
   - "10.8.0"
 
+branches:
+  only:
+  - master
+
 cache:
   directories:
     - node_modules
@@ -48,7 +52,7 @@ jobs:
       - 10.8.0
     script:
       - yarn run build
-      - ls build
+      - ls build/static
     deploy:
     - provider: pages
       skip_cleanup: true
