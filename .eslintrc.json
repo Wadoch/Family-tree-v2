@@ -56,7 +56,7 @@
             }
         ],
         "react/jsx-curly-spacing": [
-            "error",
+            "warn",
             "always",
             {
                 "spacing": {
@@ -88,7 +88,7 @@
             0
         ],
         "no-plusplus": 0,
-        "no-console": "error",
+        "no-console": "warn",
         "no-multiple-empty-lines": [
             "error",
             {
