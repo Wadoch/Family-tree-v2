@@ -1,0 +1,30 @@
+$screenSmall: 768px !default;
+$screenMedium: 980px !default;
+$screenLarge: 1024px !default;
+
+$publication-mqs: () !default;
+$breakpoints:  map-merge(
+                (
+                        mobile: '(max-width: #{$screenSmall - 1})',
+                        mobile-up: '(min-width: #{$screenSmall})',
+                        tablet: '(min-width: #{$screenSmall}) and (max-width: #{$screenMedium - 1})',
+                        up-to-desktop: '(max-width: #{$screenMedium - 1})',
+                        desktop: '(min-width: #{$screenMedium})',
+                        desktop-wide: '(min-width: #{$screenLarge})',
+                        up-to-desktop-wide: '(max-width: #{$screenLarge - 1})'
+                ),
+                $publication-mqs
+);
+
+
+@mixin respond-to($breakpoint) {
+    @if map-has-key($breakpoints, $breakpoint) {
+        @media screen and #{map-get($breakpoints, $breakpoint)} {
+            @content;
+        }
+    }
+
+    @else {
+        @warn "Unfortunately, no value could be retrieved from `#{$breakpoint}`. " + "Please make sure it is defined in `$spp-mqs` map.";
+    }
+}
