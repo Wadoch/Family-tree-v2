@@ -1,6 +1,7 @@
 {
   "name": "family-tree-v2",
   "version": "0.1.0",
+  "license": "MIT",
   "homepage": "https://wadoch.github.io/Family-tree-v2",
   "private": true,
   "scripts": {
