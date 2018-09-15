@@ -1,6 +1,3 @@
-**JIRA Task**
-[Open task in JIRA](https://jira.schibsted.io/browse/MP-53)
-
 **Description**
 
 Simple description of pull request

@@ -1,8 +1,8 @@
 import React from 'react';
 import { Route } from 'react-router';
 
-import LoginScreen from '../Screens/LoginScreen';
-import MainScreen from "../Screens/MainScreen";
+import LoginScreen from '../Screens/LoginScreen/index';
+import MainScreen from "../Screens/MainScreen/index";
 
 export default () => (
     <div>

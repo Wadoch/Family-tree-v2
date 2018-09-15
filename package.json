@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "license": "MIT",
   "homepage": "https://wadoch.github.io/Family-tree-v2",
+  "author": "Dominik 'Wadoch' Wadowski",
   "private": true,
   "scripts": {
     "start": "node scripts/start.js",

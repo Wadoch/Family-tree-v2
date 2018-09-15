@@ -16,6 +16,16 @@ const RegisterForm = ({ onRegister }) => {
                 type: 'password',
                 name: 'passwordRegisterCredentials',
             },
+            {
+                text: 'Confirm password:',
+                type: 'password',
+                name: 'confirmPasswordRegisterCredentials',
+            },
+            {
+                text: 'Email:',
+                type: 'email',
+                name: 'emailRegisterCredentials',
+            },
         ],
         button: {
             text: 'Register',
