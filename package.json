@@ -6,8 +6,7 @@
   "author": "Dominik 'Wadoch' Wadowski",
   "private": true,
   "engines": {
-    "node": "10.8.0",
-    "yarn": "1.9.4"
+    "node": "10.8.0"
   },
   "scripts": {
     "start": "node scripts/start.js",
