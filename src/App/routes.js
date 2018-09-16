@@ -1,8 +1,9 @@
 import React from 'react';
 import { Route } from 'react-router';
 
-import LoginScreen from '../Screens/LoginScreen/index';
-import MainScreen from "../Screens/MainScreen/index";
+import LoginScreen from '../Screens/LoginScreen';
+import RegisterScreen from '../Screens/RegisterScreen';
+import MainScreen from "../Screens/MainScreen";
 
 export default () => (
     <div>
@@ -10,6 +11,11 @@ export default () => (
             exact
             path='/login'
             component={ LoginScreen }
+        />
+        <Route
+            exact
+            path='/register'
+            component={ RegisterScreen }
         />
         <Route
             exact

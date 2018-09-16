@@ -1,17 +1,17 @@
 import React, { Component } from 'react';
 
-import { LoginForm } from '../../Components/Form';
+import { RegisterForm } from '../../Components/Form';
 
 import styles from './styles/style.scss';
 
-class LoginScreen extends Component {
+class RegisterScreen extends Component {
     render() {
         return (
             <div className={ styles.container }>
                 <div>
-                    <h2>Login</h2>
-                    <LoginForm
-                        onLogin={ () => {} }
+                    <h2>Register</h2>
+                    <RegisterForm
+                        onRegister={ () => {} }
                     />
                 </div>
             </div>
@@ -19,4 +19,4 @@ class LoginScreen extends Component {
     }
 }
 
-export default LoginScreen;
+export default RegisterScreen;
