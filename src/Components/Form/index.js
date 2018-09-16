@@ -1,7 +1,7 @@
 import LoginForm from './LoginForm';
-import RegisterForm from './RegisterForm';
+import Form from './Form';
 
 export {
     LoginForm,
-    RegisterForm,
+    Form,
 };

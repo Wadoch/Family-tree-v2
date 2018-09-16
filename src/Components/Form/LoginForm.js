@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import Form from './components/Form';
+import Form from './Form';
 
 const LoginForm = ({ onLogin }) => {
     const content = {

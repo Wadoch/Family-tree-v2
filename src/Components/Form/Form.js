@@ -1,10 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import ButtonComponent from './ButtonComponent';
-import DataElements from './DataElements';
+import ButtonComponent from './components/ButtonComponent';
+import DataElements from './components/DataElements';
 
-import styles from '../styles/style.scss';
+import styles from './styles/style.scss';
 
 const Form = ({content}) => {
     const {data, button } = content;

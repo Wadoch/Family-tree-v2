@@ -1,7 +1,9 @@
 import React, {Component } from 'react';
 import { BrowserRouter } from 'react-router-dom';
+import { Provider } from 'react-redux';
 
 import routes from './routes';
+import store from './store';
 
 import styles from './style/App.scss';
 
@@ -10,9 +12,11 @@ class App extends Component {
     render() {
         return (
             <div className={ styles.App }>
-                <BrowserRouter>
-                    { routes() }
-                </BrowserRouter>
+                <Provider store={ store }>
+                    <BrowserRouter>
+                        { routes() }
+                    </BrowserRouter>
+                </Provider>
             </div>
         );
     }

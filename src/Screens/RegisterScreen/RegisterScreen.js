@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import { RegisterForm } from '../../Components/Form';
+import RegisterContainer from '../../Containers/RegisterContainer';
 
 import styles from './styles/style.scss';
 
@@ -10,9 +10,7 @@ class RegisterScreen extends Component {
             <div className={ styles.container }>
                 <div>
                     <h2>Register</h2>
-                    <RegisterForm
-                        onRegister={ () => {} }
-                    />
+                    <RegisterContainer />
                 </div>
             </div>
         );
