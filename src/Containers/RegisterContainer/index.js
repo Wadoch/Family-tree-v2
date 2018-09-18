@@ -7,7 +7,7 @@ import { Form } from '../../Components/Form';
 
 const mapStateToProps = state => ({});
 const mapDispatchToProps = dispatch => ({
-    onRegister: data => console.log(data),
+    onRegister: data => {},
 });
 
 class RegisterContainer extends Component {

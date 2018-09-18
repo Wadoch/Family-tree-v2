@@ -22,7 +22,7 @@ export default () => (
         <PrivateRoute
             exact
             path='/menu'
-            isAuthenticated={false}
+            isAuthenticated={ false }
             component={ MainScreen }
         />
     </div>
