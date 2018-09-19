@@ -4,7 +4,6 @@ import { Provider } from 'react-redux';
 
 import routes from './routes';
 import store from './store';
-import Navigation from '../Components/Navigation';
 
 import styles from './style/App.scss';
 
@@ -15,7 +14,6 @@ class App extends Component {
             <Provider store={ store }>
                 <BrowserRouter>
                     <div className={ styles.App }>
-                        <Navigation />
                         { routes() }
                     </div>
                 </BrowserRouter>

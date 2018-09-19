@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 
 import styles from './styles/styles.scss';
+import Navigation from "../../Components/Navigation";
 
 // TODO: if not logged in:
 // TODO: basic info, fancy images and links to register (loginForm as part of page)
@@ -11,6 +12,8 @@ class MainScreen extends Component {
     render() {
         return(
             <div className={ styles.container }>
+                <Navigation />
+
                 Main
             </div>
         );

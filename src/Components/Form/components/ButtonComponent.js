@@ -4,10 +4,15 @@ import PropTypes from 'prop-types';
 import styles from '../styles/style.scss';
 
 const ButtonComponent = ({ data }) => (
-    <div className={ styles.formElement }>
-        <button onClick={ data.onClick }>
-            {data.text}
-        </button>
+    <div className={ styles.buttonWrapper }>
+        <div className={ styles.formElement }>
+            <button
+                onClick={ data.onClick }
+                className={ data.className }
+            >
+                {data.text}
+            </button>
+        </div>
     </div>
 );
 

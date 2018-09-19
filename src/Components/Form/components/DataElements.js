@@ -5,7 +5,10 @@ import styles from '../styles/style.scss';
 
 const DataElements = ({ data }) => {
     const elements = data.map((element, key) => (
-        <div key={ key } className={ styles.formElement }>
+        <div
+            key={ key }
+            className={ element.className ? element.className : styles.formElement }
+        >
             <label>{element.text}</label>
             <input
                 type={ element.type }

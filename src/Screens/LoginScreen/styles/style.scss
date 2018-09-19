@@ -1,3 +1,56 @@
+@import "../../../Styles/main";
+
 .container{
 
+
+    .box {
+        height: 90vh;
+        display: flex;
+        flex-flow: column;
+        justify-content: space-evenly;
+        align-items: center;
+
+        .title {
+            flex: 1 0 auto;
+            font-size: 54px;
+            color: $grey;
+            padding-top: 40px;
+        }
+
+        @include respond-to(mobile-up) {
+            .title {
+                font-size: 64px;
+            }
+        }
+
+        .loginBox {
+            flex: 3 0 auto;
+            width: 90%;
+
+            .registerLink {
+                margin: 20px auto 0;
+
+                a {
+                    color: $grey;
+                    text-decoration: none;
+                }
+
+                a:hover {
+                    color: $dark;
+                }
+            }
+        }
+    }
+
+    @include respond-to(mobile) {
+        .box {
+            height: 80vh;
+        }
+    }
+
+    .box:first-child {
+        background-image: url("../images/backgroundLoginImage.jpg");
+        background-size: cover;
+        width: 100%;
+    }
 }

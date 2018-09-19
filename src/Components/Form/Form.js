@@ -6,7 +6,7 @@ import DataElements from './components/DataElements';
 
 import styles from './styles/style.scss';
 
-const Form = ({content}) => {
+const Form = ({ content }) => {
     const {data, button } = content;
 
     return (
