@@ -8,8 +8,8 @@ class RegisterScreen extends Component {
     render() {
         return (
             <div className={ styles.container }>
-                <div>
-                    <h2>Register</h2>
+                <div className={ styles.box }>
+                    <h2 className={ styles.title }>Register</h2>
                     <RegisterContainer />
                 </div>
             </div>

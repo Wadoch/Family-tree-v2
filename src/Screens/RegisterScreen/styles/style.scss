@@ -1,0 +1,29 @@
+@import "../../../Styles/main";
+
+.container {
+    position: absolute;
+    width: 100vw;
+    height: 100vh;
+    background-color: $light;
+    display: flex;
+    flex-flow: column;
+    justify-content: center;
+    align-items: center;
+
+    .box {
+        max-width: 90%;
+        width: 400px;
+        height: 450px;
+        background-color: $lightGrey;
+        border: 1px solid $grey;
+        border-radius: 12px;
+        display: flex;
+        flex-flow: column;
+
+        .title {
+            color: $dark;
+            font-size: 40px;
+        }
+    }
+
+}

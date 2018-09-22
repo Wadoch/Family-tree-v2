@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import { Form } from '../../Components/Form';
+import styles from '../../Components/Form/styles/style.scss';
 
 //  TODO: redux will send data to api, the only functionality
 
@@ -39,6 +40,7 @@ class RegisterContainer extends Component {
             ],
             button: {
                 text: 'Register',
+                className: styles.registerButton,
                 onClick: onRegister({
                     username: document.getElementById('usernameRegisterCredentials'),
                     password: document.getElementById('passwordRegisterCredentials'),
@@ -48,7 +50,7 @@ class RegisterContainer extends Component {
         };
 
         return (
-            <div>
+            <div className={ styles.registerFormContainer } >
                 <Form content={ registerFormContent } />
             </div>
         );

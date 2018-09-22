@@ -70,3 +70,89 @@
         }
     }
 }
+
+.registerFormContainer {
+    width: 100%;
+    flex: 1 0 auto;
+    display: flex;
+    flex-flow: column;
+    justify-content: center;
+    align-items: center;
+
+    .container {
+        display: flex;
+        flex-flow: column;
+        width: 350px;
+        max-width: 90%;
+
+        .dataWrapper {
+            display: flex;
+            flex-flow: column;
+            justify-content: space-evenly;
+
+            .formElement {
+                display: flex;
+                justify-content: space-around;
+                margin: 2px 0;
+
+                label {
+                    flex: 1 0 auto;
+                    color: $grey;
+                    font-size: 16px;
+                }
+
+                input {
+                    flex: 2 0 auto;
+                    font-size: 16px;
+                    padding: 4px;
+                    background-color: $light;
+                    border: 1px solid $grey;
+                    border-radius: 4px;
+                }
+
+                @include respond-to(mobile) {
+                    label {
+                        margin-bottom: 2px;
+                    }
+                }
+
+                @include respond-to(mobile-up) {
+                    input {
+                        max-width: 180px;
+                    }
+                }
+            }
+            @include respond-to(mobile) {
+                .formElement {
+                    flex-flow: column;
+                    justify-content: center;
+                    align-items: stretch;
+                }
+            }
+
+            .loginRememberCheckBox {
+                display: flex;
+                justify-content: center;
+
+                label {
+                    color: $grey;
+                    font-size: 14px;
+                }
+            }
+        }
+
+        .buttonWrapper {
+            .formElement {
+                .registerButton {
+                    background-color: $blue;
+                    color: $light;
+                    padding: 4px $gapMedium;
+                    border: 2px solid $blue;
+                    border-radius: 4px;
+                    font-size: 18px;
+                    margin-top: $gapMedium;
+                }
+            }
+        }
+    }
+}
