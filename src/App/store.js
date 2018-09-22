@@ -4,9 +4,8 @@ import {
     applyMiddleware,
 } from 'redux';
 
-import thunk from 'redux-thunk';
-
 import reducers from '../Redux/reducers';
+import middleware from '../Redux/middlewares';
 
-export default createStore(combineReducers(reducers), applyMiddleware(thunk));
+export default createStore(combineReducers(reducers), applyMiddleware(...middleware));
 
