@@ -1,5 +1,4 @@
 import React from 'react';
-import { Route } from 'react-router';
 
 import PrivateRoute from '../Components/PrivateRoute';
 
@@ -9,19 +8,25 @@ import MainScreen from "../Screens/MainScreen";
 
 export default () => (
     <div>
-        <Route
+        <PrivateRoute
             exact
             path='/login'
+            redirectPath='/menu'
+            forLoggedIn={ false }
             component={ LoginScreen }
         />
-        <Route
+        <PrivateRoute
             exact
             path='/register'
+            redirectPath='/menu'
+            forLoggedIn={ false }
             component={ RegisterScreen }
         />
         <PrivateRoute
             exact
             path='/menu'
+            redirectPath='/login'
+            forLoggedIn={ true }
             isAuthenticated={ false }
             component={ MainScreen }
         />
