@@ -26,7 +26,6 @@ export default (state = initialState, action) => {
                 pending: true,
             };
         case LOGIN_SUCCESS:
-            console.log('1');
             return {
                 ...state,
                 authenticated: true,

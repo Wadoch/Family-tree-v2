@@ -5,7 +5,6 @@ import Navigation from "../../Components/Navigation";
 
 // TODO: add bff url to config and change in login endpoint
 // TODO: add verify JWT at page init
-// TODO: add logout button
 // TODO: add demo in readme
 // TODO: list of families etc.
 

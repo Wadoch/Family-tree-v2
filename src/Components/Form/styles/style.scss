@@ -21,6 +21,7 @@
             .formElement {
                 display: flex;
                 justify-content: space-around;
+                align-items: baseline;
 
                 label {
                     flex: 1 0 auto;
@@ -127,16 +128,6 @@
                     flex-flow: column;
                     justify-content: center;
                     align-items: stretch;
-                }
-            }
-
-            .loginRememberCheckBox {
-                display: flex;
-                justify-content: center;
-
-                label {
-                    color: $grey;
-                    font-size: 14px;
                 }
             }
         }

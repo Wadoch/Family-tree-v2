@@ -2,13 +2,13 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
+import Form from '../../Components/Form';
+
 import {
     loginUser,
 } from '../../Redux/authentication/actions';
 
-import Form from './Form';
-
-import styles from './styles/style.scss';
+import styles from '../../Components/Form/styles/style.scss';
 
 const mapStateToProps = state => state;
 
@@ -37,12 +37,6 @@ const LoginForm = ({ onLogin }) => {
                 type: 'password',
                 name: 'passwordLoginCredentials',
                 className: styles.loginPassword,
-            },
-            {
-                text: 'Remember me',
-                type: 'checkbox',
-                name: 'rememberMeLoginCredentials',
-                className: styles.loginRememberCheckBox,
             },
         ],
         button: {
