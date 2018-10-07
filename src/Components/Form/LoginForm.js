@@ -1,11 +1,29 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+
+import {
+    loginUser,
+} from '../../Redux/authentication/actions';
 
 import Form from './Form';
 
 import styles from './styles/style.scss';
 
+const mapStateToProps = state => state;
+
+const mapDispatchToProps = dispatch => ({
+    onLogin: (creds) => dispatch(loginUser(creds)),
+});
+
 const LoginForm = ({ onLogin }) => {
+    const loginUserWithCredentials = () => {
+        const username = document.getElementById('usernameLoginCredentials').value;
+        const password = document.getElementById('passwordLoginCredentials').value;
+
+        onLogin({username, password});
+    };
+
     const content = {
         data: [
             {
@@ -29,7 +47,7 @@ const LoginForm = ({ onLogin }) => {
         ],
         button: {
             text: 'Login',
-            onClick: onLogin,
+            onClick: loginUserWithCredentials,
             className: styles.loginButton,
         },
     };
@@ -49,4 +67,4 @@ LoginForm.defaultProps = {
     onLogin: () => {},
 };
 
-export default LoginForm;
+export default connect(mapStateToProps, mapDispatchToProps)(LoginForm);

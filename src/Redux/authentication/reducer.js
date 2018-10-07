@@ -1,38 +1,42 @@
 import {
-    REGISTER_REQUEST,
-    REGISTER_SUCCESS,
-    REGISTER_FAILURE,
+    LOGIN_REQUEST,
+    LOGIN_SUCCESS,
+    LOGIN_FAILURE,
 } from './types';
+import {
+    getJWT,
+} from "../utils";
 
 const initialState = {
-    initialized: false,
+    authenticated: !!getJWT(),
     pending: false,
-    error: null,
+    errorMessage: null,
+    userToken: getJWT() || null,
 };
 
-export default (state = initialState, {type, payload}) => {
-    switch (type) {
-        case REGISTER_REQUEST:
+export default (state = initialState, action) => {
+    switch (action.type) {
+        case LOGIN_REQUEST:
             return {
                 ...state,
+                authenticated: false,
                 pending: true,
-                error: null,
             };
-        case REGISTER_SUCCESS:
+        case LOGIN_SUCCESS:
             return {
                 ...state,
-                ...payload.data,
+                authenticated: true,
                 pending: false,
-                initialized: true,
+                userToken: action.payload.userToken,
             };
-        case REGISTER_FAILURE:
+        case LOGIN_FAILURE:
             return {
                 ...state,
-                error: payload,
+                authenticated: false,
                 pending: false,
+                errorMessage: action.error,
             };
         default:
             return state;
     }
 };
-

@@ -12,9 +12,7 @@ class LoginScreen extends Component {
                 <div className={ styles.box }>
                     <h2 className={ styles.title }>Family tree</h2>
                     <div className={ styles.loginBox }>
-                        <LoginForm
-                            onLogin={ () => {} }
-                        />
+                        <LoginForm />
                         <div className={ styles.registerLink }>
                             <Link to='/register'> or create new account</Link>
                         </div>
