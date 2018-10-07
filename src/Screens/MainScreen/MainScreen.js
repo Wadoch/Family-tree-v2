@@ -3,9 +3,10 @@ import React, { Component } from 'react';
 import styles from './styles/styles.scss';
 import Navigation from "../../Components/Navigation";
 
-// TODO: if not logged in:
-// TODO: basic info, fancy images and links to register (loginForm as part of page)
-// TODO: as loggedIn:
+// TODO: add bff url to config and change in login endpoint
+// TODO: add verify JWT at page init
+// TODO: add logout button
+// TODO: add demo in readme
 // TODO: list of families etc.
 
 class MainScreen extends Component {
@@ -13,7 +14,6 @@ class MainScreen extends Component {
         return(
             <div className={ styles.container }>
                 <Navigation />
-
                 Main
             </div>
         );

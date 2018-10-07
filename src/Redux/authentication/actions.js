@@ -2,24 +2,43 @@ import {
     LOGIN_REQUEST,
     LOGIN_SUCCESS,
     LOGIN_FAILURE,
+    LOGOUT_REQUEST,
+    LOGOUT_SUCCESS,
+    LOGOUT_FAILURE,
 } from './types';
-import { encryptUserCredentials, getResponseFromEndpoint, setJWT } from '../utils';
+import {
+    encryptUserCredentials,
+    getResponseFromEndpoint,
+    setJWT,
+    removeJWT,
+} from '../utils';
 
-export const requestLogin = credentials => ({
+const requestLogin = credentials => ({
     type: LOGIN_REQUEST,
     credentials,
 });
 
-export const successLogin = user => ({
+const successLogin = user => ({
     type: LOGIN_SUCCESS,
     payload: {
         userToken: user.token,
     },
 });
 
-export const failureLogin = error => ({
+const failureLogin = error => ({
     type: LOGIN_FAILURE,
-    error,
+});
+
+const requestLogout = () => ({
+    type: LOGOUT_REQUEST,
+});
+
+const successLogout = () => ({
+    type: LOGOUT_SUCCESS,
+});
+
+const failureLogout = () => ({
+    type: LOGOUT_FAILURE,
 });
 
 export const loginUser = (credentials) => {
@@ -37,7 +56,6 @@ export const loginUser = (credentials) => {
 
         try {
             const response = await getResponseFromEndpoint('http://localhost:8000/authenticate', config);
-
             if(response.statusCode === 200) {
                 const jwt = response.data.idToken;
                 setJWT(jwt);
@@ -50,4 +68,15 @@ export const loginUser = (credentials) => {
             dispatch(failureLogin(err));
         }
     };
+};
+
+export const logoutUser = () => dispatch => {
+    dispatch(requestLogout());
+    try {
+        removeJWT();
+        dispatch(successLogout());
+    }
+    catch (err) {
+        dispatch(failureLogout());
+    }
 };
