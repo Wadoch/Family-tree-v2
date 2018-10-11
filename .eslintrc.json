@@ -28,7 +28,7 @@
         ],
         "max-len": [
             "error",
-            120,
+            160,
             {
                 "ignoreComments": true
             }

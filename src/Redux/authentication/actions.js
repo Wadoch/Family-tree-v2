@@ -25,7 +25,7 @@ const successLogin = user => ({
     },
 });
 
-const failureLogin = error => ({
+const failureLogin = () => ({
     type: LOGIN_FAILURE,
 });
 
@@ -41,6 +41,9 @@ const failureLogout = () => ({
     type: LOGOUT_FAILURE,
 });
 
+// TODO: fix bff
+// TODO: store last error
+
 export const loginUser = (credentials) => {
     let encryptedUser = encryptUserCredentials(credentials);
     let config = {
@@ -55,7 +58,7 @@ export const loginUser = (credentials) => {
         dispatch(requestLogin(credentials));
 
         try {
-            const response = await getResponseFromEndpoint('http://localhost:8000/authenticate', config);
+            const response = await getResponseFromEndpoint('https://ps-family-tree-bff.herokuapp.com/authentiacte', config);
             if(response.statusCode === 200) {
                 const jwt = response.data.idToken;
                 setJWT(jwt);
@@ -77,6 +80,6 @@ export const logoutUser = () => dispatch => {
         dispatch(successLogout());
     }
     catch (err) {
-        dispatch(failureLogout());
+        dispatch(failureLogout(err));
     }
 };
