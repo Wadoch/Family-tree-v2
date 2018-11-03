@@ -102,11 +102,10 @@ export const verifyJWT = () => {
     return async dispatch => {
         dispatch(requestVerifyJwt());
 
-        if(!getJWT()) {
-            dispatch(failureVerifyJwt());
-        }
-
         try {
+            if(!getJWT()) {
+                throw 'Missing JWT';
+            }
             const response = await getResponseFromEndpoint(`${process.env.REACT_APP_BFF_URL}/verify`, config);
 
             if(response.statusCode === 200) {
