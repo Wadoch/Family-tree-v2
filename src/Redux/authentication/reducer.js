@@ -8,6 +8,9 @@ import {
     VERIFY_JWT_REQUEST,
     VERIFY_JWT_SUCCESS,
     VERIFY_JWT_FAILURE,
+    REGISTER_REQUEST,
+    REGISTER_SUCCESS,
+    REGISTER_FAILURE,
 } from './types';
 import {
     getJWT,
@@ -36,6 +39,25 @@ export default (state = initialState, action) => {
                 userToken: action.payload.userToken,
             };
         case LOGIN_FAILURE:
+            return {
+                ...state,
+                authenticated: false,
+                pending: false,
+            };
+        case REGISTER_REQUEST:
+            return {
+                ...state,
+                authenticated: false,
+                pending: true,
+            };
+        case REGISTER_SUCCESS:
+            return {
+                ...state,
+                authenticated: true,
+                pending: false,
+                userToken: action.payload.userToken,
+            };
+        case REGISTER_FAILURE:
             return {
                 ...state,
                 authenticated: false,

@@ -8,6 +8,9 @@ import {
     VERIFY_JWT_REQUEST,
     VERIFY_JWT_FAILURE,
     VERIFY_JWT_SUCCESS,
+    REGISTER_REQUEST,
+    REGISTER_SUCCESS,
+    REGISTER_FAILURE,
 } from './types';
 import {
     encryptUserCredentials,
@@ -31,6 +34,22 @@ const successLogin = user => ({
 
 const failureLogin = () => ({
     type: LOGIN_FAILURE,
+});
+
+const requestRegister = credentials => ({
+    type: REGISTER_REQUEST,
+    credentials,
+});
+
+const successRegister = user => ({
+    type: REGISTER_SUCCESS,
+    payload: {
+        userToken: user.token,
+    },
+});
+
+const failureRegister = () => ({
+    type: REGISTER_FAILURE,
 });
 
 const requestLogout = () => ({
@@ -74,7 +93,6 @@ export const loginUser = (credentials) => {
         dispatch(requestLogin(credentials));
 
         try {
-            // const response = await getResponseFromEndpoint('https://ps-family-tree-bff.herokuapp.com/authentiacte', config);
             const response = await getResponseFromEndpoint(`${process.env.REACT_APP_BFF_URL}/authenticate`, config);
             if(response.statusCode === 200) {
                 const jwt = response.data.idToken;
@@ -86,6 +104,34 @@ export const loginUser = (credentials) => {
             }
         } catch(err) {
             dispatch(failureLogin(err));
+        }
+    };
+};
+
+export const registerUser = (credentials) => {
+    let encryptedUser = encryptUserCredentials(credentials);
+    let config = {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(encryptedUser),
+    };
+
+    return async dispatch => {
+        dispatch(requestRegister(credentials));
+        try {
+            const response = await getResponseFromEndpoint(`${process.env.REACT_APP_BFF_URL}/register`, config);
+            if(response.statusCode === 200) {
+                const jwt = response.data.idToken;
+                setJWT(jwt);
+                dispatch(successRegister({token: jwt}));
+            }
+            else {
+                throw response;
+            }
+        } catch (err) {
+            dispatch(failureRegister());
         }
     };
 };
