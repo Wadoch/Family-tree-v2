@@ -1,11 +1,22 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
 
 import LoginForm from '../../Containers/LoginContainer';
 
 import styles from './styles/style.scss';
+import { verifyJWT } from "../../Redux/authentication/actions";
+
+const mapDispatchToProps = dispatch => ({
+    initPage: () => dispatch(verifyJWT()),
+});
 
 class LoginScreen extends Component {
+    componentDidMount() {
+        const { initPage } = this.props;
+        initPage();
+    }
+
     render() {
         return (
             <div className={ styles.container }>
@@ -26,4 +37,7 @@ class LoginScreen extends Component {
     }
 }
 
-export default LoginScreen;
+export default connect(
+    null,
+    mapDispatchToProps
+)(LoginScreen);

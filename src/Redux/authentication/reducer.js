@@ -5,6 +5,9 @@ import {
     LOGOUT_REQUEST,
     LOGOUT_SUCCESS,
     LOGOUT_FAILURE,
+    VERIFY_JWT_REQUEST,
+    VERIFY_JWT_SUCCESS,
+    VERIFY_JWT_FAILURE,
 } from './types';
 import {
     getJWT,
@@ -37,7 +40,6 @@ export default (state = initialState, action) => {
                 ...state,
                 authenticated: false,
                 pending: false,
-                error: true,
             };
         case LOGOUT_REQUEST:
             return {
@@ -54,7 +56,24 @@ export default (state = initialState, action) => {
             return {
                 ...state,
                 pending: false,
-                error: true,
+            };
+        case VERIFY_JWT_REQUEST:
+            return {
+                ...state,
+                pending: true,
+            };
+        case VERIFY_JWT_SUCCESS:
+            return {
+                ...state,
+                authenticated: true,
+                pending: false,
+                userToken: action.userToken,
+            };
+        case VERIFY_JWT_FAILURE:
+            return {
+                ...state,
+                authenticated: false,
+                pending: false,
             };
         default:
             return state;

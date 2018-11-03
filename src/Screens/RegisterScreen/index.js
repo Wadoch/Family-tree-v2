@@ -1,11 +1,21 @@
 import React, { Component } from 'react';
 import { Link } from "react-router-dom";
+import { connect } from 'react-redux';
 
 import RegisterContainer from '../../Containers/RegisterContainer';
 
 import styles from './styles/style.scss';
+import {verifyJWT} from "../../Redux/authentication/actions";
+
+const mapDispatchToProps = dispatch => ({
+    initPage: () => dispatch(verifyJWT()),
+});
 
 class RegisterScreen extends Component {
+    componentDidMount() {
+        const { initPage } = this.props;
+        initPage();
+    }
     render() {
         return (
             <div className={ styles.container }>
@@ -21,4 +31,7 @@ class RegisterScreen extends Component {
     }
 }
 
-export default RegisterScreen;
+export default connect(
+    null,
+    mapDispatchToProps
+)(RegisterScreen);

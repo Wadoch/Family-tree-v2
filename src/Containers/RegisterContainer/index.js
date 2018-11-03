@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 import Form from '../../Components/Form';
 import styles from '../../Components/Form/styles/style.scss';
 
-const mapStateToProps = state => ({});
 const mapDispatchToProps = dispatch => ({
     onRegister: data => {},
 });
@@ -56,6 +55,6 @@ class RegisterContainer extends Component {
 }
 
 export default connect(
-    mapStateToProps,
+    null,
     mapDispatchToProps
 )(RegisterContainer);

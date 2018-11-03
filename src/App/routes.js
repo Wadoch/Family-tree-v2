@@ -11,7 +11,7 @@ import MainScreen from "../Screens/MainScreen";
 
 const mapStateToProps = state => {
     const { authentication } = state;
-    const {authenticated} = authentication;
+    const { authenticated } = authentication;
 
     return {
         authenticated,

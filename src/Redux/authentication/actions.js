@@ -5,12 +5,16 @@ import {
     LOGOUT_REQUEST,
     LOGOUT_SUCCESS,
     LOGOUT_FAILURE,
+    VERIFY_JWT_REQUEST,
+    VERIFY_JWT_FAILURE,
+    VERIFY_JWT_SUCCESS,
 } from './types';
 import {
     encryptUserCredentials,
     getResponseFromEndpoint,
     setJWT,
     removeJWT,
+    getJWT,
 } from '../utils';
 
 const requestLogin = credentials => ({
@@ -41,7 +45,19 @@ const failureLogout = () => ({
     type: LOGOUT_FAILURE,
 });
 
-// TODO: fix bff
+const requestVerifyJwt = () => ({
+    type: VERIFY_JWT_REQUEST,
+});
+
+const successVerifyJwt = user => ({
+    type: VERIFY_JWT_SUCCESS,
+    userToken: user.token,
+});
+
+const failureVerifyJwt = () => ({
+    type: VERIFY_JWT_FAILURE,
+});
+
 // TODO: store last error
 
 export const loginUser = (credentials) => {
@@ -58,7 +74,8 @@ export const loginUser = (credentials) => {
         dispatch(requestLogin(credentials));
 
         try {
-            const response = await getResponseFromEndpoint('https://ps-family-tree-bff.herokuapp.com/authentiacte', config);
+            // const response = await getResponseFromEndpoint('https://ps-family-tree-bff.herokuapp.com/authentiacte', config);
+            const response = await getResponseFromEndpoint(`${process.env.REACT_APP_BFF_URL}/authenticate`, config);
             if(response.statusCode === 200) {
                 const jwt = response.data.idToken;
                 setJWT(jwt);
@@ -69,6 +86,43 @@ export const loginUser = (credentials) => {
             }
         } catch(err) {
             dispatch(failureLogin(err));
+        }
+    };
+};
+
+export const verifyJWT = () => {
+    let config = {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({userToken: getJWT()}),
+    };
+
+    return async dispatch => {
+        dispatch(requestVerifyJwt());
+
+        if(!getJWT()) {
+            dispatch(failureVerifyJwt());
+        }
+
+        try {
+            const response = await getResponseFromEndpoint(`${process.env.REACT_APP_BFF_URL}/verify`, config);
+
+            if(response.statusCode === 200) {
+                const jwt = response.data.idToken;
+
+                setJWT(jwt);
+                dispatch(successVerifyJwt({token: jwt}));
+            }
+            else {
+                removeJWT();
+                throw response;
+            }
+
+        } catch(err) {
+            removeJWT();
+            dispatch(failureVerifyJwt(err));
         }
     };
 };
