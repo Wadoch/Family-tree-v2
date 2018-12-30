@@ -23,7 +23,7 @@ class RegisterScreen extends Component {
                     <h2 className={ styles.title }>Register</h2>
                     <RegisterContainer />
                     <div>
-                        <Link to='/login'>Back to login</Link>
+                        <Link to='/'>Back to login</Link>
                     </div>
                 </div>
             </div>

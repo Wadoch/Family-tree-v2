@@ -1,0 +1,49 @@
+.container {
+    border-right: 3px solid darkred;
+    width: 300px;
+    display: flex;
+    flex-flow: column;
+    justify-content: space-between;
+
+    .title {
+        font-size: 24px;
+        text-transform: uppercase;
+        margin-bottom: 50px;
+    }
+
+    .links {
+        flex-grow: 3;
+        list-style: none;
+        padding: 0;
+        display: flex;
+        flex-flow: column;
+
+        .linkElement {
+            display: flex;
+            flex-flow: column;
+            margin: 1px;
+            color: darkred;
+
+            .link {
+                padding: 10px 5px;
+                color: darkred;
+                text-decoration: none;
+                font-size: 16px;
+            }
+
+            .link:hover {
+                background-color: #f5c4c6;
+                color: white;
+            }
+        }
+    }
+
+    .logoutButton {
+        background-color: darkred;
+        color: white;
+        border: 3px solid darkred;
+        padding: 10px 30px;
+        cursor: pointer;
+    }
+}
+
