@@ -141,8 +141,8 @@ export const verifyJWT = () => {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
+            'Authorization': getJWT(),
         },
-        body: JSON.stringify({userToken: getJWT()}),
     };
 
     return async dispatch => {
