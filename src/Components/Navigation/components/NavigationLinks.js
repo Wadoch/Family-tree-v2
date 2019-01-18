@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import styles from './styles/style.scss';
+import styles from '../styles/style.scss';
 
 const NavigationLinks = ({ links }) => (
     <ul className={ styles.links } >

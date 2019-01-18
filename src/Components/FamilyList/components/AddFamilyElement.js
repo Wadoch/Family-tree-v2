@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import styles from "./styles/styles.scss";
+import styles from "../styles/styles.scss";
 
 class AddFamilyElement extends Component {
     constructor(props) {

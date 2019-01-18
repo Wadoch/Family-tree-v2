@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import styles from './styles/styles.scss';
+import styles from '../styles/styles.scss';
 
 const FamilyListElement = ({ id, name, peopleNum, handleClick, handleRemove, handleEdit }) => (
     <li className={ styles.familyListElement }>

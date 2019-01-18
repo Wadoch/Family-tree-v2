@@ -8,17 +8,27 @@ import {
     REMOVE_FAMILY_REQUEST,
     REMOVE_FAMILY_SUCCESS,
     REMOVE_FAMILY_FAILURE,
+    SET_CURRENT_FAMILY,
+    GET_SINGLE_FAMILY_REQUEST,
+    GET_SINGLE_FAMILY_SUCCESS,
+    GET_SINGLE_FAMILY_FAILURE,
 } from './types';
 
 const initialState = {
     families: [],
     currentFamily: {},
+    currentFamilyId: '',
     pending: false,
     error: false,
 };
 
 export default (state = initialState, action) => {
     switch (action.type) {
+        case SET_CURRENT_FAMILY:
+            return {
+                ...state,
+                currentFamilyId: action.payload.familyId,
+            };
         case GET_ALL_FAMILIES_REQUEST:
             return {
                 ...state,
@@ -66,6 +76,23 @@ export default (state = initialState, action) => {
                 pending: false,
             };
         case REMOVE_FAMILY_FAILURE:
+            return {
+                ...state,
+                pending: false,
+                error: action.payload,
+            };
+        case GET_SINGLE_FAMILY_REQUEST:
+            return {
+                ...state,
+                pending: true,
+            };
+        case GET_SINGLE_FAMILY_SUCCESS:
+            return {
+                ...state,
+                pending: false,
+                currentFamily: action.payload.family,
+            };
+        case GET_SINGLE_FAMILY_FAILURE:
             return {
                 ...state,
                 pending: false,

@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import FamilyListElement from './FamilyListElement';
-import AddFamilyElement from './AddFamilyElement';
+import FamilyListElement from './components/FamilyListElement';
+import AddFamilyElement from './components/AddFamilyElement';
 
 import styles from './styles/styles.scss';
 

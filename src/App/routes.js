@@ -7,7 +7,8 @@ import PrivateRoute from '../Components/PrivateRoute';
 
 import LoginScreen from '../Screens/LoginScreen';
 import RegisterScreen from '../Screens/RegisterScreen';
-import MainScreen from "../Screens/MainScreen";
+import ListScreen from "../Screens/ListScreen";
+import CreateFamilyScreen from "../Screens/CreateFamilyScreen";
 
 const mapStateToProps = state => {
     const { authentication } = state;
@@ -43,7 +44,15 @@ const Routes = ({ authenticated }) => {
                 redirectPath='/'
                 forLoggedIn={ true }
                 isAuthenticated={ authenticated }
-                component={ MainScreen }
+                component={ ListScreen }
+            />
+            <PrivateRoute
+                exact
+                path='/create'
+                redirectPath='/'
+                forLoggedIn={ true }
+                isAuthenticated={ authenticated }
+                component={ CreateFamilyScreen }
             />
         </div>
     );

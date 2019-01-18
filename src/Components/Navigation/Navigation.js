@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
-import NavigationLinks from './NavigationLinks';
+import NavigationLinks from './components/NavigationLinks';
 
 import { logoutUser } from "../../Redux/authentication/actions";
 
