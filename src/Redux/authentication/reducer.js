@@ -42,7 +42,7 @@ export default (state = initialState, action) => {
             return {
                 ...state,
                 authenticated: false,
-                pending: false,
+                error: action.payload,
             };
         case REGISTER_REQUEST:
             return {
@@ -62,6 +62,7 @@ export default (state = initialState, action) => {
                 ...state,
                 authenticated: false,
                 pending: false,
+                error: action.payload,
             };
         case LOGOUT_REQUEST:
             return {
@@ -78,6 +79,7 @@ export default (state = initialState, action) => {
             return {
                 ...state,
                 pending: false,
+                error: action.payload,
             };
         case VERIFY_JWT_REQUEST:
             return {
@@ -96,6 +98,7 @@ export default (state = initialState, action) => {
                 ...state,
                 authenticated: false,
                 pending: false,
+                error: action.payload,
             };
         default:
             return state;

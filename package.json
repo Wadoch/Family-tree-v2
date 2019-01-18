@@ -2,7 +2,6 @@
   "name": "family-tree-v2",
   "version": "0.1.0",
   "license": "MIT",
-  "homepage": "https://wadoch.github.io/Family-tree-v2",
   "author": "Dominik 'Wadoch' Wadowski",
   "private": true,
   "engines": {
@@ -11,6 +10,8 @@
   "scripts": {
     "start": "node scripts/start.js",
     "build": "node scripts/build.js",
+    "run:dev": "node scripts/start.js",
+    "run:build": "serve build",
     "deploy": "yarn run build && gh-pages -d build",
     "test": "node scripts/test.js --env=jsdom"
   },
@@ -57,6 +58,7 @@
     "redux-thunk": "^2.3.0",
     "resolve": "1.6.0",
     "sass-loader": "^7.1.0",
+    "serve": "8",
     "style-loader": "0.19.0",
     "sw-precache-webpack-plugin": "0.11.4",
     "url-loader": "0.6.2",

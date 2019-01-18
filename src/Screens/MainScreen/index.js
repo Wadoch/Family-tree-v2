@@ -2,36 +2,64 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import styles from './styles/styles.scss';
-import Navigation from "../../Components/Navigation";
 
+import FamilyList from '../../Components/FamilyList';
 import {
     verifyJWT,
 } from '../../Redux/authentication/actions';
+import {
+    getAllFamilies,
+    addNewFamily,
+    removeFamily,
+} from "../../Redux/family/actions";
 
-// TODO: add demo in readme
-// TODO: list of families etc.
-
+// TODO: ask user with notification to add family if found in offline db
+const mapStateToProps = ({ family }) => ({
+    families: family.families,
+});
 const mapDispatchToProps = dispatch => ({
-    initPage: () => dispatch(verifyJWT()),
+    initPage: () => {
+        dispatch(verifyJWT());
+        dispatch(getAllFamilies());
+    },
+    addNewFamily: (name) => dispatch(addNewFamily(name)),
+    removeFamily: (familyId) => dispatch(removeFamily(familyId)),
 });
 
 class MainScreen extends Component {
+    mapFamilies = (families) => {
+        return families.map(({familyId, name, people}) => ({
+            id: familyId,
+            name: name,
+            peopleNum: people.length,
+            handleClick: (familyId) => {},
+            handleEdit: (familyId) => {},
+            handleRemove: (familyId) => {this.props.removeFamily(familyId)},
+        }));
+    };
+
     componentDidMount() {
         const { initPage } = this.props;
         initPage();
     }
 
     render() {
+        const { families, addNewFamily } = this.props;
+        const familiesList = this.mapFamilies(families);
         return(
             <div className={ styles.container }>
-                <Navigation />
-                Main
+                <FamilyList
+                    list={ familiesList }
+                    handleAdd={ (name) => {
+                        addNewFamily(name)
+                    } }
+                />
             </div>
         );
     }
 }
 
 export default connect(
-    null,
+    mapStateToProps,
     mapDispatchToProps
 )(MainScreen);

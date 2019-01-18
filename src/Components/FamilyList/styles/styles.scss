@@ -1,0 +1,109 @@
+.familyList {
+    position: absolute;
+    width: 100%;
+    list-style: none;
+    display: flex;
+    justify-content: stretch;
+    flex-flow: column;
+    padding: 0;
+    margin: 0;
+
+    &Element {
+        font-size: 24px;
+        display: flex;
+        justify-content: space-between;
+        border-bottom: 1px solid #f0edf2;
+
+        &:hover {
+            background-color: #f0edf2;
+
+            .familyListElementButtons {
+                &Edit {
+                    background-color: #f0edf2;
+                }
+            }
+        }
+
+        &Link {
+            padding: 10px 50px;
+            flex: 1;
+            display: flex;
+            justify-content: stretch;
+            align-items: stretch;
+            cursor: pointer;
+        }
+
+        &Buttons {
+            padding: 10px 50px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            &Edit {
+                display: flex;
+                margin-right: 10px;
+                font-size: 16px;
+                border: 1px solid #b6b9ba;
+                border-radius: 3px;
+                padding: 4px 10px;
+                cursor: pointer;
+                outline: none;
+            }
+
+            &Remove {
+                display: flex;
+                background-color: rgba(0,0,0,0);
+                border: 1px solid rgba(0,0,0,0);
+                padding: 4px 10px;
+                cursor: pointer;
+                outline: none;
+            }
+        }
+    }
+
+    .addFamily {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 24px;
+
+        &Link {
+            cursor: pointer;
+            padding: 10px;
+            color: #2b2c28;
+
+            &:hover {
+                color: #b6b9ba;
+            }
+        }
+
+        &Form {
+            &Input {
+                border: 1px solid rgba(0,0,0,0);
+                border-bottom: 1px solid #2b2c28;
+                font-size: 24px;
+                margin: 10px;
+                padding: 3px 10px;
+                outline: none;
+
+                &::placeholder {
+                    color: #b6b9ba;
+                }
+            }
+
+            &Button {
+                cursor: pointer;
+                border: 1px solid rgba(0,0,0,0);
+                font-size: 24px;
+                padding: 3px 10px;
+                border-radius: 3px;
+                outline: none;
+                color: #b6b9ba;
+
+                &:hover {
+                    color: #2b2c28;
+                }
+            }
+        }
+    }
+}
