@@ -1,0 +1,90 @@
+.container {
+    .addPerson {
+        position: fixed;
+        bottom: 0;
+        right: 0;
+        margin: 20px;
+        background-color: darkgreen;
+        border-radius: 50px;
+        display: flex;
+
+        &Form {
+            display: flex;
+            flex-flow: column;
+            justify-content: space-evenly;
+            width: 400px;
+            padding: 20px;
+            font-size: 20px;
+            border-radius: 6px;
+            margin-left: 20px;
+            text-align: left;
+            color: white;
+
+            & > * {
+                padding: 5px 0;
+                display: flex;
+                justify-content: stretch;
+                align-items: stretch;
+                width: 100%;
+
+                label {
+                    width: 150px;
+                    margin-right: 10px;
+                }
+
+                select:first-child {
+                    width: 150px;
+                    text-align: center;
+                    margin-right: 10px;
+
+                    option {
+                        text-align: center;
+                    }
+                }
+
+                input, select:last-child {
+                    flex: 1;
+                    border-radius: 3px;
+                    border: 1px solid #f0edf2;
+                    background-color: #f0edf2;
+                    padding: 3px 5px;
+                }
+            }
+
+            & > button {
+                background-color: darkgreen;
+                color: white;
+                border: 2px solid white;
+                border-radius: 5px;
+                text-align: center;
+                font-size: 24px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                margin-top: 20px;
+            }
+        }
+
+        &Button {
+            align-self: flex-end;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 100px;
+            background-color: darkgreen;
+            color: white;
+            font-size: 24px;
+            width: 80px;
+            height: 80px;
+            outline: none;
+
+            &:hover {
+                cursor: pointer;
+            }
+        }
+    }
+}
+
+.hidden {
+    display: none!important;
+}
