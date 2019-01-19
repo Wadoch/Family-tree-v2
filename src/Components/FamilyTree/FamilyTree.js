@@ -3,21 +3,28 @@ import PropTypes from 'prop-types';
 
 import Person from '../Person';
 
-const FamilyTree = ({ people }) => (
-    <div>
-        FamilyTree
-        {people.map(person => (
-            <Person
-                key={ person.personId }
-                details={ person.details }
-                personId={ person.personId }
-            />
-        ))}
-    </div>
-);
+import styles from './styles/styles.scss';
+
+const FamilyTree = ({ people, removePerson }) => {
+    if(people.length) {
+        return (
+            <div className={ styles.familyTreeContainer }>
+                {people.map(person => (
+                    <Person
+                        key={ person.personId }
+                        details={ person.details }
+                        personId={ person.personId }
+                        removePerson={ removePerson }
+                    />
+                ))}
+            </div>
+        );
+    }
+    return <div />
+};
 
 FamilyTree.propTypes = {
-    people: PropTypes.array,
+    people: PropTypes.arrayOf(Person.propTypes),
 };
 
 FamilyTree.defaultProps = {

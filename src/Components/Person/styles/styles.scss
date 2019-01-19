@@ -1,0 +1,58 @@
+.personContainer {
+    width: 200px;
+    height: 130px;
+    background-color: #b6b9ba;
+    border: 2px solid #b6b9ba;
+    display: flex;
+    flex-flow: column;
+    justify-content: center;
+    align-self: stretch;
+    color: white;
+    font-size: 18px;
+    border-radius: 5px;
+
+    .name {
+        padding: 0;
+        margin: 0 10px 10px 10px;
+    }
+
+    .date {
+        padding: 0;
+        margin: 0 10px;
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .personButtons {
+        display: flex;
+        justify-content: space-evenly;
+        margin-top: 10px;
+
+        .button {
+            flex: 1;
+            align-self: center;
+            cursor: pointer;
+            display: flex;
+            top: 0;
+            left: 0;
+            padding: 2px 5px;
+            margin: 1px;
+            border-radius: 3px;
+            background-color: white;
+            color: #b6b9ba;
+
+            a {
+                flex: 1;
+                align-self: center;
+            }
+        }
+    }
+}
+
+.male {
+    border: 2px solid dodgerblue;
+}
+
+.female {
+    border: 2px solid darkred;
+}

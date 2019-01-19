@@ -4,7 +4,7 @@ import classnames from 'classnames';
 
 import { verifyJWT } from '../../Redux/authentication/actions';
 import { getSingleFamily } from '../../Redux/family/actions';
-import { addNewPerson, openNewPerson } from '../../Redux/person/actions';
+import { addNewPerson, removePerson, openNewPerson } from '../../Redux/person/actions';
 
 import FamilyTree from '../../Components/FamilyTree';
 
@@ -23,6 +23,7 @@ const mapDispatchToProps = dispatch => ({
         dispatch(getSingleFamily(familyId))
     },
     addNewPerson: (familyId, details, relationships) => { dispatch(addNewPerson(familyId, details, relationships)) },
+    removePerson: (personId) => { dispatch(removePerson(personId)) },
     openAddNewPerson: () => { dispatch(openNewPerson()) },
 });
 
@@ -54,9 +55,25 @@ const mapNewPersonDetails = (details = {}) => ({
     additionalInfo: details.additionalInfo,
 });
 
-const mapNewPersonRelationship = (details = {}) => ({
-    [details.relationshipType]: details.relationshipValue,
-});
+const mapNewPersonRelationship = (details = {}) => {
+    if(details.relationshipType === 'parents') {
+        return details.relationshipValue !== '' ?
+            ({
+                [details.relationshipType]: [details.relationshipValue],
+            }) :
+            [];
+    }
+    return ({
+        [details.relationshipType]: details.relationshipValue !== '' ? details.relationshipValue : null,
+    });
+};
+
+const getPeopleNames = (people = []) => people.map(e => ({
+    value: e.personId,
+    name: `${e.details.firstName} ${e.details.surname}`,
+}));
+
+const mapPeopleToSelectOptions = (people) => people.map(e => (<option value={ e.value }>{e.name}</option>));
 
 class CreateFamilyScreen extends Component {
     constructor(props) {
@@ -72,15 +89,25 @@ class CreateFamilyScreen extends Component {
     }
 
     render() {
-        const { people, familyName, familyId, addNewPerson, addPersonOpen, openAddNewPerson } = this.props;
+        const {
+            people,
+            familyName,
+            familyId,
+            addNewPerson,
+            removePerson,
+            addPersonOpen,
+            openAddNewPerson,
+        } = this.props;
 
         return (
             <div className={ styles.container }>
+
                 <h3 className={ styles.familyName }>
                     {familyName}
                 </h3>
                 <FamilyTree
                     people={ mapPeople(people) }
+                    removePerson={ removePerson }
                 />
                 <div className={ styles.addPerson } >
                     <div
@@ -106,13 +133,11 @@ class CreateFamilyScreen extends Component {
                         </div>
                         <div>
                             <select id='addPersonRelationshipType'>
-                                <option>Parent</option>
-                                <option>Partner</option>
+                                <option value='parents'>Parent</option>
+                                <option value='partner'>Partner</option>
                             </select>
                             <select id='addPersonRelationshipValue'>
-                                <option>1</option>
-                                <option>2</option>
-                                <option>3</option>
+                                {mapPeopleToSelectOptions(getPeopleNames(people))}
                             </select>
                         </div>
                         <div>
@@ -142,12 +167,10 @@ class CreateFamilyScreen extends Component {
                         onClick={ () => openAddNewPerson() }
                     >
                         {addPersonOpen ? 'X' : '+'}
-                        {/*TODO: show actual people on select list */}
-                        {/*TODO: handle add action */}
-                        {/*TODO: Add relationship for both parents when add */}
-                        {/*TODO: Draw single person block */}
                         {/*TODO: Sort family as tree */}
                         {/*TODO: Draw whole family */}
+                        {/*TODO: show actual people on select list */}
+                        {/*TODO: Add relationship for both parents when add */}
                         {/*TODO: Add offline part of website */}
                         {/*TODO: Add SVG icons */}
                     </div>
