@@ -6,7 +6,7 @@ import {
 import {getAllFamilies} from './actions';
 
 export default ({ dispatch }) => next => (action) => {
-    const { type, payload } = action;
+    const { type } = action;
 
     const actionOfType = lookedFor => type === lookedFor;
 

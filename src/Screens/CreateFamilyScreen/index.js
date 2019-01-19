@@ -4,15 +4,17 @@ import classnames from 'classnames';
 
 import { verifyJWT } from '../../Redux/authentication/actions';
 import { getSingleFamily } from '../../Redux/family/actions';
+import { addNewPerson, openNewPerson } from '../../Redux/person/actions';
 
 import FamilyTree from '../../Components/FamilyTree';
 
 import styles from './styles/styles.scss';
 
-const mapStateToProps = ({ family }) => ({
+const mapStateToProps = ({ family, person }) => ({
     familyId: family.currentFamilyId,
     people: family.currentFamily.people,
     familyName: family.currentFamily.name,
+    addPersonOpen: person.addPersonOpen,
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -20,7 +22,8 @@ const mapDispatchToProps = dispatch => ({
         dispatch(verifyJWT());
         dispatch(getSingleFamily(familyId))
     },
-    addNewPerson: () => {},
+    addNewPerson: (familyId, details, relationships) => { dispatch(addNewPerson(familyId, details, relationships)) },
+    openAddNewPerson: () => { dispatch(openNewPerson()) }
 });
 
 const mapPeople = (people = []) => people.map(person => ({
@@ -29,13 +32,35 @@ const mapPeople = (people = []) => people.map(person => ({
     personId: person.personId,
 }));
 
+const getValue = id => document.getElementById(id).value;
+
+const getNewPersonDetails = () => ({
+    name: getValue('addPersonName'),
+    surname: getValue('addPersonSurname'),
+    relationshipType: getValue('addPersonRelationshipType'),
+    relationshipValue: getValue('addPersonRelationshipValue'),
+    birth: getValue('addPersonBirth'),
+    death: getValue('addPersonDeath'),
+    gender: getValue('addPersonGender'),
+    additionalInfo: getValue('addPersonAdditionalInfo'),
+});
+
+const mapNewPersonDetails = (details = {}) => ({
+    firstName: details.name,
+    surname: details.surname,
+    birthDate: details.birth,
+    deathDate: details.death,
+    gender: details.gender,
+    additionalInfo: details.additionalInfo,
+});
+
+const mapNewPersonRelationship = (details = {}) => ({
+    [details.relationshipType]: details.relationshipValue,
+});
+
 class CreateFamilyScreen extends Component {
     constructor(props) {
         super(props);
-
-        this.state = {
-            addPersonOpen: false,
-        };
     }
 
     componentDidMount() {
@@ -47,7 +72,7 @@ class CreateFamilyScreen extends Component {
     }
 
     render() {
-        const { people, familyName, addNewPerson } = this.props;
+        const { people, familyName, familyId, addNewPerson, openAddNewPerson } = this.props;
 
         return (
             <div className={ styles.container }>
@@ -57,27 +82,34 @@ class CreateFamilyScreen extends Component {
                 <FamilyTree
                     people={ mapPeople(people) }
                 />
-                <div className={ styles.addPerson } onClick={ () => addNewPerson() } >
+                <div className={ styles.addPerson } >
                     <div
                         className={ classnames({
                             [styles.addPersonForm]: true,
-                            [styles.hidden]: !this.state.addPersonOpen,
+                            [styles.hidden]: !this.props.addPersonOpen,
                         }) }
                     >
                         <div>
                             <label>Name: </label>
-                            <input type='text' />
+                            <input type='text' id='addPersonName' />
                         </div>
                         <div>
                             <label>Surname: </label>
-                            <input type='text' />
+                            <input type='text' id='addPersonSurname' />
                         </div>
                         <div>
-                            <select>
+                            <label>Gender: </label>
+                            <select id='addPersonGender'>
+                                <option>Male</option>
+                                <option>Female</option>
+                            </select>
+                        </div>
+                        <div>
+                            <select id='addPersonRelationshipType'>
                                 <option>Parent</option>
                                 <option>Partner</option>
                             </select>
-                            <select>
+                            <select id='addPersonRelationshipValue'>
                                 <option>1</option>
                                 <option>2</option>
                                 <option>3</option>
@@ -85,21 +117,31 @@ class CreateFamilyScreen extends Component {
                         </div>
                         <div>
                             <label>Date of birth:</label>
-                            <input type='date' />
+                            <input type='date' id='addPersonBirth' />
                         </div>
                         <div>
                             <label>Date of death:</label>
-                            <input type='date' />
+                            <input type='date' id='addPersonDeath' />
                         </div>
-                        <button>
+                        <div>
+                            <label>Additional info:</label>
+                            <textarea rows={ 3 } id='addPersonAdditionalInfo' />
+                        </div>
+                        <button onClick={ () => {
+                            addNewPerson(
+                                familyId,
+                                mapNewPersonDetails(getNewPersonDetails()),
+                                mapNewPersonRelationship(getNewPersonDetails())
+                            )
+                        } }>
                             Add person
                         </button>
                     </div>
                     <div
                         className={ styles.addPersonButton }
-                        onClick={ () => this.setState({addPersonOpen: !this.state.addPersonOpen}) }
+                        onClick={ () => openAddNewPerson() }
                     >
-                        {this.state.addPersonOpen ? 'X' : '+'}
+                        {this.props.addPersonOpen ? 'X' : '+'}
                         {/*TODO: show actual people on select list */}
                         {/*TODO: handle add action */}
                         {/*TODO: Add relationship for both parents when add */}
