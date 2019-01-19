@@ -23,7 +23,7 @@ const mapDispatchToProps = dispatch => ({
         dispatch(getSingleFamily(familyId))
     },
     addNewPerson: (familyId, details, relationships) => { dispatch(addNewPerson(familyId, details, relationships)) },
-    openAddNewPerson: () => { dispatch(openNewPerson()) }
+    openAddNewPerson: () => { dispatch(openNewPerson()) },
 });
 
 const mapPeople = (people = []) => people.map(person => ({
@@ -72,7 +72,7 @@ class CreateFamilyScreen extends Component {
     }
 
     render() {
-        const { people, familyName, familyId, addNewPerson, openAddNewPerson } = this.props;
+        const { people, familyName, familyId, addNewPerson, addPersonOpen, openAddNewPerson } = this.props;
 
         return (
             <div className={ styles.container }>
@@ -86,7 +86,7 @@ class CreateFamilyScreen extends Component {
                     <div
                         className={ classnames({
                             [styles.addPersonForm]: true,
-                            [styles.hidden]: !this.props.addPersonOpen,
+                            [styles.hidden]: !addPersonOpen,
                         }) }
                     >
                         <div>
@@ -141,7 +141,7 @@ class CreateFamilyScreen extends Component {
                         className={ styles.addPersonButton }
                         onClick={ () => openAddNewPerson() }
                     >
-                        {this.props.addPersonOpen ? 'X' : '+'}
+                        {addPersonOpen ? 'X' : '+'}
                         {/*TODO: show actual people on select list */}
                         {/*TODO: handle add action */}
                         {/*TODO: Add relationship for both parents when add */}
