@@ -175,15 +175,18 @@ class CreateFamilyScreen extends Component {
             removePerson,
             addPersonOpen,
             openAddNewPerson,
+            offline,
         } = this.props;
 
         return (
             <div className={ styles.container }>
 
                 <h3 className={ styles.familyName }>
-                    <a className={ styles.backButton } onClick={ () => {this.props.history.push('/')} }>
-                        BACK
-                    </a>
+                    {!offline ? (
+                        <a className={ styles.backButton } onClick={ () => {this.props.history.push('/')} }>
+                            BACK
+                        </a>) : null
+                    }
                     {familyName}
                 </h3>
                 <FamilyTree
@@ -250,6 +253,7 @@ class CreateFamilyScreen extends Component {
                     >
                         {addPersonOpen ? 'X' : '+'}
                         {/*TODO: Style lines between people */}
+                        {/*TODO: Save somewhere id's or db offline */}
                         {/*TODO: Add SVG icons */}
                     </div>
                 </div>
