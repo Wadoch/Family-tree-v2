@@ -1,9 +1,15 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import classnames from 'classnames';
+import uuid from "uuid";
+import localforage from "localforage";
 
 import { verifyJWT } from '../../Redux/authentication/actions';
 import { getSingleFamily } from '../../Redux/family/actions';
+import {
+    mockOfflineSingleFamily,
+    offlineAddNewPerson,
+} from '../../Redux/offline/actions';
 import { addNewPerson, removePerson, openNewPerson } from '../../Redux/person/actions';
 
 import FamilyTree from '../../Components/FamilyTree';
@@ -15,15 +21,87 @@ const mapStateToProps = ({ family, person }) => ({
     people: family.currentFamily.people,
     familyName: family.currentFamily.name,
     addPersonOpen: person.addPersonOpen,
+    offlineIds: family.offlineIds,
 });
 
-const mapDispatchToProps = dispatch => ({
+const mapOnlineDispatchToProps = dispatch => ({
     initPage: (familyId) => {
         dispatch(verifyJWT());
         dispatch(getSingleFamily(familyId))
     },
     addNewPerson: (familyId, details, relationships) => { dispatch(addNewPerson(familyId, details, relationships)) },
     removePerson: (personId) => { dispatch(removePerson(personId)) },
+    openAddNewPerson: () => { dispatch(openNewPerson()) },
+});
+
+const mapOfflineDispatchToProps = dispatch => ({
+    initPage: () => {
+        dispatch(mockOfflineSingleFamily())
+    },
+    addNewPerson: async (familyId, details, relationships, people) => {
+        const personId = uuid();
+        const val = await localforage.setItem(personId, {personId, details, relationship: relationships});
+        const partnerId = relationships && relationships.partner ? relationships.partner : null;
+        let parentsId = relationships && relationships.parents ? relationships.parents : [];
+
+        if(parentsId.length > 0) {
+            parentsId.push((await localforage.getItem(parentsId[0])).relationship.partner);
+        }
+
+        let ppl = people;
+
+        let rel = null;
+        if(partnerId) {
+            rel = await localforage.getItem(partnerId);
+
+            rel.relationship.partner = personId;
+
+            ppl.forEach(e => {
+                if(e.personId === partnerId) {
+                    e.relationship.partner = personId;
+                }
+            });
+            await localforage.setItem(partnerId, rel);
+        }
+
+        let parents = [];
+        if(parentsId.length > 0) {
+            let p1 = await localforage.getItem(parentsId[0]);
+            let p2 = await localforage.getItem(parentsId[1]);
+
+            if(p1.relationship.children) {
+                p1.relationship.children.push(personId);
+            }
+            else {
+                p1.relationship.children = [personId];
+            }
+
+            if(p2.relationship.children) {
+                p2.relationship.children.push(personId);
+            }
+            else {
+                p2.relationship.children = [personId];
+            }
+
+            ppl.forEach(e => {
+                if(e.personId === parentsId[0] || e.personId === parentsId[1]) {
+                    if(e.relationship.children) {
+                        e.relationship.children.push(personId);
+                    }
+                    else {
+                        e.relationship.children = [personId];
+                    }
+                }
+            });
+            parents.push(p1, p2);
+            await localforage.setItem(parentsId[0], p1);
+            await localforage.setItem(parentsId[1], p2);
+        }
+
+        ppl = [...ppl, val];
+        dispatch(offlineAddNewPerson(familyId, details, relationships, ppl));
+    },
+    removePerson: (personId) => {},
     openAddNewPerson: () => { dispatch(openNewPerson()) },
 });
 
@@ -60,8 +138,7 @@ const mapNewPersonRelationship = (details = {}) => {
         return details.relationshipValue !== '' ?
             ({
                 [details.relationshipType]: [details.relationshipValue],
-            }) :
-            [];
+            }) : {partner: null, parents: []};
     }
     return ({
         [details.relationshipType]: details.relationshipValue !== '' ? details.relationshipValue : null,
@@ -81,10 +158,11 @@ class CreateFamilyScreen extends Component {
     }
 
     componentDidMount() {
-        const { initPage, familyId } = this.props;
-        if(familyId === '') {
+        const { initPage, familyId, offline } = this.props;
+        if(!offline && familyId === '') {
             this.props.history.push('/');
         }
+
         initPage(familyId);
     }
 
@@ -155,11 +233,12 @@ class CreateFamilyScreen extends Component {
                             <label>Additional info:</label>
                             <textarea rows={ 3 } id='addPersonAdditionalInfo' />
                         </div>
-                        <button onClick={ () => {
-                            addNewPerson(
+                        <button onClick={ async () => {
+                            await addNewPerson(
                                 familyId,
                                 mapNewPersonDetails(getNewPersonDetails()),
-                                mapNewPersonRelationship(getNewPersonDetails())
+                                mapNewPersonRelationship(getNewPersonDetails()),
+                                people
                             )
                         } }>
                             Add person
@@ -170,7 +249,6 @@ class CreateFamilyScreen extends Component {
                         onClick={ () => openAddNewPerson() }
                     >
                         {addPersonOpen ? 'X' : '+'}
-                        {/*TODO: Add offline part of website */}
                         {/*TODO: Style lines between people */}
                         {/*TODO: Add SVG icons */}
                     </div>
@@ -183,7 +261,12 @@ class CreateFamilyScreen extends Component {
 
 export default connect(
     mapStateToProps,
-    mapDispatchToProps
+    mapOnlineDispatchToProps
+)(CreateFamilyScreen);
+
+export const OfflineCreateFamilyScreen = connect(
+    mapStateToProps,
+    mapOfflineDispatchToProps
 )(CreateFamilyScreen);
 
 //&:first-child:has(.person:not(:only-child)):before {

@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { withRouter } from 'react-router-dom';
+import { withRouter, Route } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 import PrivateRoute from '../Components/PrivateRoute';
@@ -8,7 +8,7 @@ import PrivateRoute from '../Components/PrivateRoute';
 import LoginScreen from '../Screens/LoginScreen';
 import RegisterScreen from '../Screens/RegisterScreen';
 import ListScreen from "../Screens/ListScreen";
-import CreateFamilyScreen from "../Screens/CreateFamilyScreen";
+import CreateFamilyScreen, { OfflineCreateFamilyScreen } from "../Screens/CreateFamilyScreen";
 
 const mapStateToProps = state => {
     const { authentication } = state;
@@ -53,6 +53,16 @@ const Routes = ({ authenticated }) => {
                 forLoggedIn={ true }
                 isAuthenticated={ authenticated }
                 component={ CreateFamilyScreen }
+            />
+        </div>
+    );
+};
+
+export const OfflineRoutes = () => {
+    return (
+        <div>
+            <Route
+                render={ () => (<OfflineCreateFamilyScreen offline={ true } />) }
             />
         </div>
     );

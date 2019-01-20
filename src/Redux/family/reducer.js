@@ -14,6 +14,11 @@ import {
     GET_SINGLE_FAMILY_FAILURE,
 } from './types';
 
+import {
+    ADD_NEW_PERSON_OFFLINE,
+    MOCK_FAMILY,
+} from "../offline/types";
+
 const initialState = {
     families: [],
     currentFamily: {},
@@ -87,6 +92,7 @@ export default (state = initialState, action) => {
                 pending: true,
             };
         case GET_SINGLE_FAMILY_SUCCESS:
+        case MOCK_FAMILY:
             return {
                 ...state,
                 pending: false,
@@ -97,6 +103,14 @@ export default (state = initialState, action) => {
                 ...state,
                 pending: false,
                 error: action.payload,
+            };
+        case ADD_NEW_PERSON_OFFLINE:
+            return {
+                ...state,
+                currentFamily: {
+                    ...state.currentFamily,
+                    people: action.payload.familyPeople,
+                },
             };
         default:
             return state;

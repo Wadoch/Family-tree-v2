@@ -54,7 +54,7 @@ const drawGeneration = (people, children = [], removePersonHandler) => {
                                     null}
                             </div>
                         </div>
-                        {child.relationships && child.relationships.children.length > 0 ?
+                        {child.relationships && child.relationships.children && child.relationships.children.length > 0 ?
                             drawGeneration(people, mapIdsToPeople(people, child.relationships.children), removePersonHandler) :
                             null}
                     </div>
