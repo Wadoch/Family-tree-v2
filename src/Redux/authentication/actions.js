@@ -77,8 +77,6 @@ const failureVerifyJwt = () => ({
     type: VERIFY_JWT_FAILURE,
 });
 
-// TODO: store last error
-
 export const loginUser = (credentials) => {
     let encryptedUser = encryptUserCredentials(credentials);
     let config = {

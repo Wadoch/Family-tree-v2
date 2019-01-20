@@ -103,6 +103,9 @@ class CreateFamilyScreen extends Component {
             <div className={ styles.container }>
 
                 <h3 className={ styles.familyName }>
+                    <a className={ styles.backButton } onClick={ () => {this.props.history.push('/')} }>
+                        BACK
+                    </a>
                     {familyName}
                 </h3>
                 <FamilyTree
@@ -167,14 +170,12 @@ class CreateFamilyScreen extends Component {
                         onClick={ () => openAddNewPerson() }
                     >
                         {addPersonOpen ? 'X' : '+'}
-                        {/*TODO: Sort family as tree */}
-                        {/*TODO: Draw whole family */}
-                        {/*TODO: show actual people on select list */}
-                        {/*TODO: Add relationship for both parents when add */}
                         {/*TODO: Add offline part of website */}
+                        {/*TODO: Style lines between people */}
                         {/*TODO: Add SVG icons */}
                     </div>
                 </div>
+
             </div>
         );
     }
@@ -184,3 +185,11 @@ export default connect(
     mapStateToProps,
     mapDispatchToProps
 )(CreateFamilyScreen);
+
+//&:first-child:has(.person:not(:only-child)):before {
+//    width: calc(50% + 102px);
+//    margin-left: calc(50% - 2px);
+//    height: 4px;
+//    content: '';
+//    background-color: green;
+//}

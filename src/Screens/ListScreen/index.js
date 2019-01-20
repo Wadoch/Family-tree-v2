@@ -6,6 +6,7 @@ import styles from './styles/styles.scss';
 import FamilyList from '../../Components/FamilyList';
 import {
     verifyJWT,
+    logoutUser,
 } from '../../Redux/authentication/actions';
 import {
     getAllFamilies,
@@ -26,6 +27,7 @@ const mapDispatchToProps = dispatch => ({
     addNewFamily: (name) => dispatch(addNewFamily(name)),
     removeFamily: (familyId) => dispatch(removeFamily(familyId)),
     setCurrentFamily: (familyId, history) => dispatch(setCurrentFamily(familyId, history)),
+    logout: () => dispatch(logoutUser()),
 });
 
 class MainScreen extends Component {
@@ -49,7 +51,7 @@ class MainScreen extends Component {
     }
 
     render() {
-        const { families, addNewFamily } = this.props;
+        const { families, addNewFamily, logout } = this.props;
         const familiesList = this.mapFamilies(families);
         return(
             <div className={ styles.container }>
@@ -59,6 +61,9 @@ class MainScreen extends Component {
                         addNewFamily(name)
                     } }
                 />
+                <a className={ styles.logoutButton } onClick={ () => logout() }>
+                    LOGOUT
+                </a>
             </div>
         );
     }
