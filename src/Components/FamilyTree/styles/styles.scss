@@ -3,8 +3,9 @@
     justify-content: center;
     align-items: center;
     flex-flow: column;
-    padding: 100px;
-    max-width: 100%;
+    position: relative;
+    padding-top: 100px;
+    width: 100%;
 
     .generation {
         display: flex;
@@ -45,7 +46,18 @@
 
             .personContainerBlock {
                 display: flex;
+                justify-content: center;
+                align-items: center;
                 flex-flow: column;
+
+                &:not(:last-child):after {
+                    position: relative;
+                    width: 4px;
+                    height: 85px;
+                    margin-top: -85px;
+                    content: '';
+                    background-color: green;
+                }
 
                 .personContainer {
                     display: flex;

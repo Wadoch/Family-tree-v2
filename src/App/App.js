@@ -12,15 +12,6 @@ class App extends Component {
     render() {
         return (
             <div>
-                <Online>
-                    <Provider store={ store }>
-                        <BrowserRouter>
-                            <div className={ styles.App }>
-                                <Routes />
-                            </div>
-                        </BrowserRouter>
-                    </Provider>
-                </Online>
                 <Offline>
                     <Provider store={ store }>
                         <BrowserRouter>
@@ -30,6 +21,15 @@ class App extends Component {
                         </BrowserRouter>
                     </Provider>
                 </Offline>
+                <Online>
+                    <Provider store={ store }>
+                        <BrowserRouter>
+                            <div className={ styles.App }>
+                                <Routes />
+                            </div>
+                        </BrowserRouter>
+                    </Provider>
+                </Online>
             </div>
         );
     }
