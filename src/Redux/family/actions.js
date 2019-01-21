@@ -104,14 +104,14 @@ export const getAllFamilies = () => {
     };
 };
 
-export const addNewFamily = (name) => {
+export const addNewFamily = (name, fId) => {
     let config = {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
             'Authorization': getJWT(),
         },
-        body: JSON.stringify({name: name}),
+        body: JSON.stringify({name: name, familyId: fId}),
     };
 
     return async dispatch => {

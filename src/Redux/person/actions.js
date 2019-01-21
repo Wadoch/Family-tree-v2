@@ -42,14 +42,14 @@ const failureRemovePerson = (err) => ({
     payload: err,
 });
 
-export const addNewPerson = (familyId, details, relationships) => {
+export const addNewPerson = (familyId, details, relationships, offlineId) => {
     let config = {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
             'Authorization': getJWT(),
         },
-        body: JSON.stringify({familyId, personDetails: details, relationship: relationships}),
+        body: JSON.stringify({familyId, personDetails: details, relationship: relationships, offlineId}),
     };
 
     return async dispatch => {

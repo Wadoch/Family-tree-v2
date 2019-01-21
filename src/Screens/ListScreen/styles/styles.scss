@@ -12,5 +12,12 @@
         padding: 10px;
         background-color: #f0edf2;
         cursor: pointer;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        img {
+            margin-left: 10px;
+        }
     }
 }

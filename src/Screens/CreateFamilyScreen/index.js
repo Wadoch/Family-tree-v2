@@ -27,7 +27,7 @@ const mapStateToProps = ({ family, person }) => ({
 const mapOnlineDispatchToProps = dispatch => ({
     initPage: (familyId) => {
         dispatch(verifyJWT());
-        dispatch(getSingleFamily(familyId))
+        dispatch(getSingleFamily(familyId));
     },
     addNewPerson: (familyId, details, relationships) => { dispatch(addNewPerson(familyId, details, relationships)) },
     removePerson: (personId) => { dispatch(removePerson(personId)) },
@@ -99,6 +99,13 @@ const mapOfflineDispatchToProps = dispatch => ({
         }
 
         ppl = [...ppl, val];
+
+        let pplIds = await localforage.getItem('offlineIds');
+        if(!pplIds) {
+            pplIds = [];
+        }
+        pplIds.push(personId);
+        await localforage.setItem('offlineIds', pplIds);
         dispatch(offlineAddNewPerson(familyId, details, relationships, ppl));
     },
     removePerson: (personId) => {},
@@ -252,7 +259,6 @@ class CreateFamilyScreen extends Component {
                         onClick={ () => openAddNewPerson() }
                     >
                         {addPersonOpen ? 'X' : '+'}
-                        {/*TODO: Save somewhere id's or db offline */}
                         {/*TODO: Add SVG icons */}
                     </div>
                 </div>
@@ -271,11 +277,3 @@ export const OfflineCreateFamilyScreen = connect(
     mapStateToProps,
     mapOfflineDispatchToProps
 )(CreateFamilyScreen);
-
-//&:first-child:has(.person:not(:only-child)):before {
-//    width: calc(50% + 102px);
-//    margin-left: calc(50% - 2px);
-//    height: 4px;
-//    content: '';
-//    background-color: green;
-//}
