@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import styles from '../styles/styles.scss';
+import { bin } from '../../../Styles/SVG';
 
 const FamilyListElement = ({ id, name, peopleNum, handleClick, handleRemove, handleEdit }) => (
     <li className={ styles.familyListElement }>
@@ -10,7 +11,9 @@ const FamilyListElement = ({ id, name, peopleNum, handleClick, handleRemove, han
         </a>
         <div className={ styles.familyListElementButtons }>
             {/*<button className={ styles.familyListElementButtonsEdit } onClick={ () => handleEdit(id) }>Edit</button>*/}
-            <button className={ styles.familyListElementButtonsRemove }  onClick={ () => handleRemove(id) }>X</button>
+            <button className={ styles.familyListElementButtonsRemove }  onClick={ () => handleRemove(id) }>
+                <img src={ bin } alt='bin' />
+            </button>
         </div>
     </li>
 );

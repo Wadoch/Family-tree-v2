@@ -15,6 +15,7 @@ import { addNewPerson, removePerson, openNewPerson } from '../../Redux/person/ac
 import FamilyTree from '../../Components/FamilyTree';
 
 import styles from './styles/styles.scss';
+import { arrowLeft, plus, cross } from '../../Styles/SVG';
 
 const mapStateToProps = ({ family, person }) => ({
     familyId: family.currentFamilyId,
@@ -191,7 +192,7 @@ class CreateFamilyScreen extends Component {
                 <h3 className={ styles.familyName }>
                     {!offline ? (
                         <a className={ styles.backButton } onClick={ () => {this.props.history.push('/')} }>
-                            BACK
+                            <img src={ arrowLeft } alt='back' />
                         </a>) : null
                     }
                     {familyName}
@@ -258,7 +259,7 @@ class CreateFamilyScreen extends Component {
                         className={ styles.addPersonButton }
                         onClick={ () => openAddNewPerson() }
                     >
-                        {addPersonOpen ? 'X' : '+'}
+                        {addPersonOpen ? <img src={ cross } /> : <img src={ plus } />}
                         {/*TODO: Add SVG icons */}
                     </div>
                 </div>
