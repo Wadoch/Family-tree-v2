@@ -260,7 +260,6 @@ class CreateFamilyScreen extends Component {
                         onClick={ () => openAddNewPerson() }
                     >
                         {addPersonOpen ? <img src={ cross } /> : <img src={ plus } />}
-                        {/*TODO: Add SVG icons */}
                     </div>
                 </div>
 
