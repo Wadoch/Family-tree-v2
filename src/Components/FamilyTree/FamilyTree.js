@@ -70,7 +70,9 @@ const FamilyTree = ({ people, removePerson }) => {
 
         return (
             <div className={ styles.familyTreeContainer }>
-                {root ? drawGeneration(people, root, removePerson) : null}
+                <div className={ styles.tree }>
+                    {root ? drawGeneration(people, root, removePerson) : null}
+                </div>
             </div>
         );
     }

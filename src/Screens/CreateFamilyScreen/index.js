@@ -252,7 +252,6 @@ class CreateFamilyScreen extends Component {
                         onClick={ () => openAddNewPerson() }
                     >
                         {addPersonOpen ? 'X' : '+'}
-                        {/*TODO: Styling: show hidden tree */}
                         {/*TODO: Save somewhere id's or db offline */}
                         {/*TODO: Add SVG icons */}
                     </div>

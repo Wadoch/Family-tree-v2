@@ -1,103 +1,117 @@
 .familyTreeContainer {
     display: flex;
-    justify-content: center;
-    align-items: center;
     flex-flow: column;
     position: relative;
     padding-top: 100px;
-    width: 100%;
 
-    .generation {
+    .tree {
         display: flex;
-        justify-content: center;
-        flex-flow: row;
+        justify-content: flex-start;
+        align-items: center;
+        position: absolute;
+        left: -224px;
+        padding-right: 100px;
 
-        .block {
+        .generation {
             display: flex;
-            flex-flow: column;
+            justify-content: center;
+            flex-flow: row;
 
-            &:first-child:last-child:before {
-                width: 0;
-                height: 0;
-            }
-
-            &:first-child:before {
-                width: calc(50% + 2px);
-                margin-left: calc(50% - 2px);
-                height: 4px;
-                content: '';
-                background-color: green;
-            }
-
-            &:last-child:before {
-                width: calc(50% + 2px);
-                height: 4px;
-                content: '';
-                background-color: green;
-            }
-
-            &:before {
-                margin-bottom: -20px;
-                width: 100%;
-                height: 4px;
-                content: '';
-                background-color: green;
-            }
-
-            .personContainerBlock {
+            .block {
                 display: flex;
-                justify-content: center;
-                align-items: center;
                 flex-flow: column;
 
-                &:not(:last-child):after {
-                    position: relative;
-                    width: 4px;
-                    height: 85px;
-                    margin-top: -85px;
+                &:first-child:last-child:before {
+                    width: 0;
+                    height: 0;
+                }
+
+                &:first-child:before {
+                    width: calc(50% + 2px);
+                    margin-left: calc(50% - 2px);
+                    height: 4px;
                     content: '';
                     background-color: green;
                 }
 
-                .personContainer {
+                &:last-child:before {
+                    width: calc(50% + 2px);
+                    height: 4px;
+                    content: '';
+                    background-color: green;
+                }
+
+                &:before {
+                    margin-bottom: -20px;
+                    width: 100%;
+                    height: 4px;
+                    content: '';
+                    background-color: green;
+                }
+
+                &:only-child {
+                    margin-left: 224px;
+                }
+
+                .personContainerBlock {
                     display: flex;
                     justify-content: center;
                     align-items: center;
-                    margin: 20px;
+                    flex-flow: column;
 
-                    .person {
-                        display: flex;
-                        flex-flow: column;
-                        align-items: center;
-
-                        &:before {
-                            position: relative;
-                            width: 4px;
-                            height: 20px;
-                            content: '';
-                            background-color: green;
-                        }
+                    &:not(:last-child):after {
+                        position: relative;
+                        width: 4px;
+                        height: 85px;
+                        margin-left: 224px;
+                        margin-top: -85px;
+                        content: '';
+                        background-color: green;
                     }
 
-                    .partner {
+                    .personContainer {
                         display: flex;
                         justify-content: center;
                         align-items: center;
-                        margin-left: 20px;
-                        margin-top: 20px;
+                        margin: 20px;
 
-                        &:before {
-                            position: relative;
-                            margin-left: -20px;
-                            width: 20px;
-                            height: 4px;
-                            content: '';
-                            background-color: green;
+                        .person {
+                            display: flex;
+                            flex-flow: column;
+                            align-items: center;
+
+                            &:not(:only-child) {
+                                margin-left: 224px;
+                            }
+
+                            &:before {
+                                position: relative;
+                                width: 4px;
+                                height: 20px;
+                                content: '';
+                                background-color: green;
+                            }
+                        }
+
+                        .partner {
+                            display: flex;
+                            justify-content: center;
+                            align-items: center;
+                            margin-left: 20px;
+                            margin-top: 20px;
+
+                            &:before {
+                                position: relative;
+                                margin-left: -20px;
+                                width: 20px;
+                                height: 4px;
+                                content: '';
+                                background-color: green;
+                            }
                         }
                     }
                 }
             }
         }
-
     }
 }
