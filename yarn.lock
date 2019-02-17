@@ -8035,7 +8035,7 @@ sw-precache-webpack-plugin@0.11.4:
     sw-precache "^5.1.1"
     uglify-js "^3.0.13"
 
-sw-precache@^5.1.1, sw-precache@^5.2.1:
+sw-precache@^5.1.1:
   version "5.2.1"
   resolved "https://registry.yarnpkg.com/sw-precache/-/sw-precache-5.2.1.tgz#06134f319eec68f3b9583ce9a7036b1c119f7179"
   integrity sha512-8FAy+BP/FXE+ILfiVTt+GQJ6UEf4CVHD9OfhzH0JX+3zoy2uFk7Vn9EfXASOtVmmIVbL3jE/W8Z66VgPSZcMhw==

@@ -9,7 +9,7 @@
   },
   "scripts": {
     "start": "node scripts/start.js",
-    "build": "node scripts/build.js && sw-precache --config=sw-precache-config.js",
+    "build": "node scripts/build.js",
     "run:dev": "node scripts/start.js",
     "run:build": "serve build",
     "deploy": "yarn run build && gh-pages -d build",
@@ -62,7 +62,6 @@
     "sass-loader": "^7.1.0",
     "serve": "8",
     "style-loader": "0.19.0",
-    "sw-precache": "^5.2.1",
     "sw-precache-webpack-plugin": "0.11.4",
     "url-loader": "0.6.2",
     "webpack": "3.8.1",
