@@ -1,15 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import classnames from 'classnames';
-import uuid from "uuid";
-import localforage from "localforage";
 
 import { verifyJWT } from '../../Redux/authentication/actions';
 import { getSingleFamily } from '../../Redux/family/actions';
-import {
-    mockOfflineSingleFamily,
-    offlineAddNewPerson,
-} from '../../Redux/offline/actions';
 import { addNewPerson, removePerson, openNewPerson } from '../../Redux/person/actions';
 
 import FamilyTree from '../../Components/FamilyTree';
@@ -22,7 +16,6 @@ const mapStateToProps = ({ family, person }) => ({
     people: family.currentFamily.people,
     familyName: family.currentFamily.name,
     addPersonOpen: person.addPersonOpen,
-    offlineIds: family.offlineIds,
 });
 
 const mapOnlineDispatchToProps = dispatch => ({
@@ -32,84 +25,6 @@ const mapOnlineDispatchToProps = dispatch => ({
     },
     addNewPerson: (familyId, details, relationships) => { dispatch(addNewPerson(familyId, details, relationships)) },
     removePerson: (personId) => { dispatch(removePerson(personId)) },
-    openAddNewPerson: () => { dispatch(openNewPerson()) },
-});
-
-const mapOfflineDispatchToProps = dispatch => ({
-    initPage: () => {
-        dispatch(mockOfflineSingleFamily())
-    },
-    addNewPerson: async (familyId, details, relationships, people) => {
-        const personId = uuid();
-        const val = await localforage.setItem(personId, {personId, details, relationship: relationships});
-        const partnerId = relationships && relationships.partner ? relationships.partner : null;
-        let parentsId = relationships && relationships.parents ? relationships.parents : [];
-
-        if(parentsId.length > 0) {
-            parentsId.push((await localforage.getItem(parentsId[0])).relationship.partner);
-        }
-
-        let ppl = people;
-
-        let rel = null;
-        if(partnerId) {
-            rel = await localforage.getItem(partnerId);
-
-            rel.relationship.partner = personId;
-
-            ppl.forEach(e => {
-                if(e.personId === partnerId) {
-                    e.relationship.partner = personId;
-                }
-            });
-            await localforage.setItem(partnerId, rel);
-        }
-
-        let parents = [];
-        if(parentsId.length > 0) {
-            let p1 = await localforage.getItem(parentsId[0]);
-            let p2 = await localforage.getItem(parentsId[1]);
-
-            if(p1.relationship.children) {
-                p1.relationship.children.push(personId);
-            }
-            else {
-                p1.relationship.children = [personId];
-            }
-
-            if(p2.relationship.children) {
-                p2.relationship.children.push(personId);
-            }
-            else {
-                p2.relationship.children = [personId];
-            }
-
-            ppl.forEach(e => {
-                if(e.personId === parentsId[0] || e.personId === parentsId[1]) {
-                    if(e.relationship.children) {
-                        e.relationship.children.push(personId);
-                    }
-                    else {
-                        e.relationship.children = [personId];
-                    }
-                }
-            });
-            parents.push(p1, p2);
-            await localforage.setItem(parentsId[0], p1);
-            await localforage.setItem(parentsId[1], p2);
-        }
-
-        ppl = [...ppl, val];
-
-        let pplIds = await localforage.getItem('offlineIds');
-        if(!pplIds) {
-            pplIds = [];
-        }
-        pplIds.push(personId);
-        await localforage.setItem('offlineIds', pplIds);
-        dispatch(offlineAddNewPerson(familyId, details, relationships, ppl));
-    },
-    removePerson: (personId) => {},
     openAddNewPerson: () => { dispatch(openNewPerson()) },
 });
 
@@ -166,8 +81,8 @@ class CreateFamilyScreen extends Component {
     }
 
     componentDidMount() {
-        const { initPage, familyId, offline } = this.props;
-        if(!offline && familyId === '') {
+        const { initPage, familyId } = this.props;
+        if(familyId === '') {
             this.props.history.push('/');
         }
 
@@ -183,18 +98,15 @@ class CreateFamilyScreen extends Component {
             removePerson,
             addPersonOpen,
             openAddNewPerson,
-            offline,
         } = this.props;
 
         return (
             <div className={ styles.container }>
 
                 <h3 className={ styles.familyName }>
-                    {!offline ? (
-                        <a className={ styles.backButton } onClick={ () => {this.props.history.push('/')} }>
-                            <img src={ arrowLeft } alt='back' />
-                        </a>) : null
-                    }
+                    <a className={ styles.backButton } onClick={ () => {this.props.history.push('/')} }>
+                        <img src={ arrowLeft } alt='back' />
+                    </a>
                     {familyName}
                 </h3>
                 <FamilyTree
@@ -271,9 +183,4 @@ class CreateFamilyScreen extends Component {
 export default connect(
     mapStateToProps,
     mapOnlineDispatchToProps
-)(CreateFamilyScreen);
-
-export const OfflineCreateFamilyScreen = connect(
-    mapStateToProps,
-    mapOfflineDispatchToProps
 )(CreateFamilyScreen);

@@ -2,7 +2,10 @@ import {
     ADD_NEW_PERSON_REQUEST,
     ADD_NEW_PERSON_SUCCESS,
     ADD_NEW_PERSON_FAILURE,
-    OPEN_ADD_NEW_PERSON, REMOVE_PERSON_REQUEST, REMOVE_PERSON_SUCCESS, REMOVE_PERSON_FAILURE,
+    OPEN_ADD_NEW_PERSON,
+    REMOVE_PERSON_REQUEST,
+    REMOVE_PERSON_SUCCESS,
+    REMOVE_PERSON_FAILURE,
 } from './types';
 import {getJWT, getResponseFromEndpoint} from "../utils";
 
@@ -42,14 +45,14 @@ const failureRemovePerson = (err) => ({
     payload: err,
 });
 
-export const addNewPerson = (familyId, details, relationships, offlineId) => {
+export const addNewPerson = (familyId, details, relationships) => {
     let config = {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
             'Authorization': getJWT(),
         },
-        body: JSON.stringify({familyId, personDetails: details, relationship: relationships, offlineId}),
+        body: JSON.stringify({familyId, personDetails: details, relationship: relationships}),
     };
 
     return async dispatch => {

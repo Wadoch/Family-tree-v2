@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import localforage from "localforage";
-import uuid from "uuid";
 
 import styles from './styles/styles.scss';
 import { enter } from '../../Styles/SVG';
@@ -18,9 +16,6 @@ import {
     removeFamily,
     setCurrentFamily,
 } from '../../Redux/family/actions';
-import {
-    addNewPerson,
-} from '../../Redux/person/actions';
 
 const mapStateToProps = ({ family }) => ({
     families: family.families,
@@ -31,7 +26,6 @@ const mapDispatchToProps = dispatch => ({
         dispatch(getAllFamilies());
     },
     addNewFamily: (name, fId) => dispatch(addNewFamily(name, fId)),
-    addNewPerson: (familyId, details, relationships, personId) => dispatch(addNewPerson(familyId, details, relationships, personId)),
     removeFamily: (familyId) => dispatch(removeFamily(familyId)),
     setCurrentFamily: (familyId, history) => dispatch(setCurrentFamily(familyId, history)),
     logout: () => dispatch(logoutUser()),
@@ -53,27 +47,8 @@ class MainScreen extends Component {
     };
 
     async componentDidMount() {
-        const { initPage, addNewFamily, addNewPerson } = this.props;
+        const { initPage } = this.props;
         initPage();
-
-        let ids = await localforage.getItem('offlineIds');
-        if(ids && ids.length > 0) {
-            const checkIf = confirm('You have existing family created online. Do you want to import it to your account?');
-
-            if(checkIf) {
-                const familyId = uuid();
-                addNewFamily('Imported', familyId);
-
-                ids.forEach(async id => {
-                    const {personId, details, relationship} = await localforage.getItem(id);
-
-                    addNewPerson(familyId, details, relationship, personId);
-                });
-
-                alert('Family successfully added');
-                await localforage.setItem('offlineIds', []);
-            }
-        }
     }
 
     render() {

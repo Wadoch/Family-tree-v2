@@ -1,2 +1,0 @@
-export const MOCK_FAMILY = 'MOCK_FAMILY';
-export const ADD_NEW_PERSON_OFFLINE = 'ADD_NEW_PERSON_OFFLINE';
